@@ -5,5 +5,5 @@
     android:layout_height="wrap_content"
     android:textSize="18sp"
     android:gravity="left"
-    android:textColor="@color/colorAccentText"
+    android:textColor="@color/TextOnAccent"
     android:padding="5dp"/>

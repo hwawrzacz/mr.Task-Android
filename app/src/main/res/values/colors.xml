@@ -9,17 +9,17 @@
     <color name="colorAccentLight">#56C8d8</color>
     <color name="colorAccentDark">#006978</color>
     <color name="colorWarning">#FF4747</color>
-    <color name="background_lvl_0">#EEE</color>
-    <color name="background_lvl_1">#F6F6F6</color>
-    <color name="background_lvl_2">#FEFEFE</color>
+    <color name="backgroundLvl0">#EEE</color>
+    <color name="backgroundLvl1">#F6F6F6</color>
+    <color name="backgroundLvl2">#FEFEFE</color>
 
     <!-- Text -->
-    <color name="colorDarkText">#000</color>
-    <color name="colorPrimaryText">#FFF</color>
-    <color name="colorAccentText">#000</color>
-    <color name="colorAccentDarkText">#FFF</color>
-    <color name="colorPrimaryLightText">#000</color>
-    <color name="colorWarningText">#FFF</color>
+    <color name="TextOnDark">#FFF</color>
+    <color name="TextOnPrimary">#FFF</color>
+    <color name="TextOnAccent">#000</color>
+    <color name="TextOnAccentDark">#FFF</color>
+    <color name="TextOnPrimaryLight">#000</color>
+    <color name="TextOnWarning">#FFF</color>
 
     <!-- Border -->
     <color name="taskTileBorder">#CCC</color>

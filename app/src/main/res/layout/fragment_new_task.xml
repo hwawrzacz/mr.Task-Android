@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintCircleRadius="5dp"
-    android:background="@color/background_lvl_0"
+    android:background="@color/backgroundLvl0"
     android:clickable="true" >
 
     <!-- Title-->
@@ -82,7 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/task_description"
         app:layout_constraintVertical_bias="0.0"
         android:backgroundTint="@color/colorWarning"
-        android:textColor="@color/colorWarningText" />
+        android:textColor="@color/TextOnWarning" />
 
     <Button
         android:id="@+id/button_add"

@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">To do list</string>
+    <string name="app_name">Mr. Task</string>
+
+    <!-- Login -->
+    <string name="login_title">Logowanie</string>
+    <string name="sign_in_text">Zaloguj się</string>
+    <string name="sign_up_text">Zarejestruj się</string>
+    <string name="sign_up_question">Nie masz profilu?</string>
+    <string name="login_label">Login</string>
+    <string name="password_label">Hasło</string>
+    <!-- End of login -->
 
     <!-- Task list / main window -->
     <string name="last_task_title">Ostatnie zadania</string>

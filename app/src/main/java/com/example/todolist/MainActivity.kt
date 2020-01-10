@@ -2,18 +2,15 @@ package com.example.todolist
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.dal.DBHelper
 import com.example.todolist.fragments.FragmentListener
+import com.example.todolist.fragments.HomeScreenFragment
 import com.example.todolist.fragments.NewTaskFragment
-import com.example.todolist.ui.recyclerViewAdapters.TaskListAdapter
-import com.example.todolist.model.Task
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), FragmentListener {
 
@@ -21,20 +18,8 @@ class MainActivity : AppCompatActivity(), FragmentListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fab.setOnClickListener {
-            val fragment = NewTaskFragment.instance()
-            showFragment(fragment)
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        refreshList()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        refreshList()
+        val homeScreenFragment = HomeScreenFragment()
+        replaceWithPrimaryFragment(homeScreenFragment)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -49,12 +34,12 @@ class MainActivity : AppCompatActivity(), FragmentListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         setActionBarToDefault()
+        super.onBackPressed()
     }
 
     override fun onFragmentClosed() {
-        this.refreshList()
+        Log.i("fragment", "Fragment closed")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -62,7 +47,7 @@ class MainActivity : AppCompatActivity(), FragmentListener {
             R.id.action_add_task -> {
                 val addTaskFragment = NewTaskFragment.instance()
 
-                showFragment(addTaskFragment)
+                replaceWithSubFragment(addTaskFragment)
                 true
             }
             R.id.action_show_list -> {
@@ -73,44 +58,48 @@ class MainActivity : AppCompatActivity(), FragmentListener {
         }
     }
 
-    private fun showFragment(fragment: Fragment) {
+    private fun replaceWithSubFragment(newFragment: Fragment) {
+        if (!isFragmentAlreadyVisible(newFragment)){
+            val newFragmentTag = newFragment::class.java
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+
+            fragmentTransaction
+                .replace(R.id.fragment_container, newFragment, newFragmentTag.toString())
+                .addToBackStack(newFragment.tag)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        }
+    }
+
+    private fun replaceWithPrimaryFragment(fragment: Fragment) {
         closeFragment()
-        setActionBarToNewTask()
 
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction
             .replace(R.id.fragment_container, fragment)
-            .addToBackStack(fragment.id.toString())
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }
 
+    private fun isFragmentAlreadyVisible(newFragment: Fragment): Boolean {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        var currentFragmentTag: String? = null
+        val newFragmentTag = newFragment::class.java.toString()
+
+        if (currentFragment != null) {
+            currentFragmentTag = currentFragment!!::class.java.toString()
+        }
+
+        return newFragmentTag == (currentFragmentTag)
+    }
+
     private fun closeFragment() {
-        setActionBarToDefault()
         supportFragmentManager.popBackStack()
     }
 
-    private fun refreshList() {
-        val tasks = this.getAllTasksOrderedByStatus()
-        val adapter = TaskListAdapter(this, tasks)
-
-        task_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        task_list.adapter = adapter
-    }
-
-    private fun getAllTasksOrderedByStatus(): MutableList<Task> {
-        val db = DBHelper(this)
-        return db.getAllTasksOrderByStatus()
-    }
-
     private fun setActionBarToDefault() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.setTitle(R.string.app_name)
-    }
-
-    private fun setActionBarToNewTask() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle(R.string.title_add_task)
+        this.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        this.supportActionBar?.setTitle(R.string.app_name)
     }
 
 //    private fun dropTable() {

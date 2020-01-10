@@ -8,4 +8,5 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <string name="login_input_font_size">18sp</string>
 </resources>

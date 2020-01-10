@@ -3,7 +3,7 @@
     android:shape="rectangle" >
 
     <solid
-        android:color="@color/background_lvl_1" >
+        android:color="@color/backgroundLvl1" >
     </solid>
 
     <!-- Border -->
