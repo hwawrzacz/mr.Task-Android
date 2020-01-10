@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic -->
+    <color name="colorPrimary">#C2185B</color>
+    <color name="colorPrimaryDark">#8C0032</color>
+    <color name="colorPrimaryLight">#fA5788</color>
+    <color name="colorPrimaryLight2">#98B5C4</color>
+    <color name="colorAccent">#0097A7</color>
+    <color name="colorAccentLight">#56C8d8</color>
+    <color name="colorAccentDark">#006978</color>
+    <color name="colorWarning">#FF4747</color>
+    <color name="background_lvl_0">#EEE</color>
+    <color name="background_lvl_1">#F6F6F6</color>
+    <color name="background_lvl_2">#FEFEFE</color>
+
+    <!-- Text -->
+    <color name="colorDarkText">#000</color>
+    <color name="colorPrimaryText">#FFF</color>
+    <color name="colorAccentText">#000</color>
+    <color name="colorAccentDarkText">#FFF</color>
+    <color name="colorPrimaryLightText">#000</color>
+    <color name="colorWarningText">#FFF</color>
+
+    <!-- Border -->
+    <color name="taskTileBorder">#CCC</color>
+</resources>

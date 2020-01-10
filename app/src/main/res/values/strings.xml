@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">To do list</string>
+
+    <!-- Task list / main window -->
+    <string name="last_task_title">Ostatnie zadania</string>
+    <string name="title_add_task">Dodaj zadanie</string>
+    <string name="title_task_preview">Podgląd zadania</string>
+    <string name="task_priority_label">Priorytet:</string>
+    <string name="task_status_label">Status:</string>
+    <string name="task_last_modified_label">Ostatnio modyfikowane:</string>
+    <!-- End of task list -->
+
+    <!-- Task example -->
+    <string name="task_id_example">1</string>
+    <string name="task_title_example">Zrobić program To do list</string>
+    <string name="task_priority_example">Wysoki</string>
+    <string name="task_status_example">Nowe</string>
+    <string name="task_date_example">19/03/2019</string>
+    <string name="task_description_example">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry a type specimen book.</string>
+    <!-- End of task example -->
+
+    <!-- Buttons -->
+    <string name="action_add_task_text">Dodaj zadanie</string>
+    <string name="action_show_list_text">Pokaż listę</string>
+    <string name="button_add_text">Dodaj</string>
+    <string name="button_cancel_text">Anuluj</string>
+    <string name="button_close_text">Zamknij</string>
+    <string name="button_delete_text">Usuń</string>
+    <string name="button_assign_task_text">Przyjmij</string>
+    <string name="button_finish_text">Zakończ</string>
+    <string name="button_save_text">Zapisz</string>
+    <string name="button_update_text">Zaktualizuj</string>
+    <!-- End of buttons -->
+
+    <!-- Text placeholders -->
+    <string name="placeholder_description">Opis</string>
+    <string name="placeholder_title">Tytuł</string>
+    <!-- End of text placeholders -->
+
+    <!--Common-->
+    <string name="common_title">Tytuł</string>
+    <string name="common_priority">Priorytet</string>
+    <string name="common_description">Opis</string>
+    <!-- End of common -->
+
+    <!-- Messages -->
+    <string name="task_added">Dodano zadanie</string>
+    <string name="task_updated">Zaktualizowano zadanie</string>
+    <string name="task_deleted">Usunięto zadanie</string>
+    <string name="not_all_fields_are_valid">Nie podano wszystkich danych</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="question_confirm_delete_task">Czy na pewno chcesz usunąć zadanie?</string>
+    <!-- Messages -->
+
+    <!-- Actions -->
+    <string name="button_action_positive">Tak</string>
+    <string name="button_action_negative">Nie</string>
+    <string name="button_action_cancel">Anuluj</string>
+
+</resources>
