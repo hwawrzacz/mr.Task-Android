@@ -1,4 +1,4 @@
-package com.example.todolist.fragments
+package com.example.todolist.ui.home_screen
 
 import android.content.Context
 import android.os.Bundle
@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.todolist.R
 import com.example.todolist.dal.DBHelper
+import com.example.todolist.ui.new_task.NewTaskFragment
 import com.example.todolist.model.Task
 import com.example.todolist.ui.recyclerViewAdapters.TaskListAdapter
 import kotlinx.android.synthetic.main.home_screen.view.*
-import java.util.zip.Inflater
 
 class HomeScreenFragment : Fragment() {
 
@@ -26,7 +26,8 @@ class HomeScreenFragment : Fragment() {
         val view = inflater.inflate(R.layout.home_screen, container, false)
 
         view.fab.setOnClickListener {
-            val fragment = NewTaskFragment.instance()
+            val fragment =
+                NewTaskFragment.instance()
             showFragment(fragment)
         }
 

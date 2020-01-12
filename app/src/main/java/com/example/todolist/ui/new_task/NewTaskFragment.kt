@@ -1,4 +1,4 @@
-package com.example.todolist.fragments
+package com.example.todolist.ui.new_task
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import com.example.todolist.dal.DBHelper
 import com.example.todolist.model.Priority
 import com.example.todolist.model.Task
 import com.example.todolist.R
+import com.example.todolist.fragments.FragmentListener
 import com.example.todolist.model.Status
 import com.example.todolist.model.parsePriority
 import com.google.android.material.snackbar.Snackbar

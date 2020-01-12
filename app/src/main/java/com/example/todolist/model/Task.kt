@@ -35,7 +35,6 @@ fun parseStatus(rawValue: String): Status{
         Status.ASSIGNED.value -> {
             status = Status.ASSIGNED
         }
-
         Status.FINISHED.value -> {
             status = Status.FINISHED
         }
@@ -51,7 +50,6 @@ fun parsePriority(rawValue: String): Priority{
         Priority.MEDIUM.value -> {
             priority = Priority.MEDIUM
         }
-
         Priority.HIGH.value -> {
             priority = Priority.HIGH
         }

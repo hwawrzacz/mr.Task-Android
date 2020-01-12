@@ -3,11 +3,16 @@
 
     <!-- Login -->
     <string name="login_title">Logowanie</string>
-    <string name="sign_in_text">Zaloguj się</string>
-    <string name="sign_up_text">Zarejestruj się</string>
-    <string name="sign_up_question">Nie masz profilu?</string>
+    <string name="register_title">Rejestracja</string>
+    <string name="login_text">Zaloguj się</string>
+    <string name="register_text">Zarejestruj się</string>
+    <string name="cancel_text">Anuluj</string>
+    <string name="register_question">Nie masz profilu?</string>
+    <string name="first_name_label">Imię</string>
+    <string name="last_name_label">Nazwisko</string>
     <string name="login_label">Login</string>
     <string name="password_label">Hasło</string>
+    <string name="repeat_password_label">Powtórz hasło</string>
     <!-- End of login -->
 
     <!-- Task list / main window -->
