@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.todolist.R
-import com.example.todolist.dal.DBHelper
+import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.ui.new_task.NewTaskFragment
 import com.example.todolist.model.Task
 import com.example.todolist.ui.recyclerViewAdapters.TaskListAdapter

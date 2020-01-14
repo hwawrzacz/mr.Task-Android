@@ -5,7 +5,7 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import com.example.todolist.dal.DBHelper
+import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.model.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_task_details.*

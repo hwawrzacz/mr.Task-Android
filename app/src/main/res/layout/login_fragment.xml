@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/first_name"
+        android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -49,8 +49,8 @@
         android:textAppearance="@style/Widget.AppCompat.Spinner.Underlined"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/first_name"
-        app:layout_constraintTop_toBottomOf="@+id/first_name"
+        app:layout_constraintStart_toStartOf="@+id/login"
+        app:layout_constraintTop_toBottomOf="@+id/login"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -104,5 +104,15 @@
             app:layout_constraintStart_toStartOf="@+id/button_login"
             app:layout_constraintTop_toBottomOf="@+id/button_login" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_data_test"
+        android:layout_width="400dp"
+        android:layout_height="17dp"
+        android:text="example"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

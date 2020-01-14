@@ -1,10 +1,9 @@
-package com.example.todolist.dal
+package com.example.todolist.model.dal
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.util.Log
 import com.example.todolist.model.*
 
 class DBHelper(context: Context?): SQLiteOpenHelper(context, NAME, null, VERSION) {

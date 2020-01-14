@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.example.todolist.dal.DBHelper
+import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.model.Priority
 import com.example.todolist.model.Task
 import com.example.todolist.R

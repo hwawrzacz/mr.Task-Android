@@ -10,6 +10,9 @@ import com.example.todolist.ui.manager.MyFragmentManager
 class LoginActivity : AppCompatActivity() {
     // Czy tutaj można stwrorzyć menedżera przekazując aktywność?
     // Czy aktywność istnieje w tym miejscu?
+
+    // Login fragment
+
     private lateinit var myFragmentManaget: MyFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
