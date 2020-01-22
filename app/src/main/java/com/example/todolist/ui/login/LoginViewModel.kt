@@ -18,10 +18,7 @@ class LoginViewModel: ViewModel() {
     fun loginUser(login: String, password: String) {
         val user = repository.getUserLoginData(login)
 
-        if (user != null) {
-            this.isLoggedSuccessfuly.value = true
-        }
-        else this.isLoggedSuccessfuly.value = false
+        this.isLoggedSuccessfuly.value = user != null
 
 //        Log.i("login", "Login user value " + this.isLoggedSuccessfuly.value)
     }
