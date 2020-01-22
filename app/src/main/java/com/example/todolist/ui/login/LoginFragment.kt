@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.todolist.R
+import com.example.todolist.model.LoginUser
 import com.example.todolist.ui.registration.RegistrationFragment
 import com.example.todolist.ui.manager.MyFragmentManager
 import kotlinx.android.synthetic.main.login_fragment.view.*
@@ -66,7 +67,8 @@ class LoginFragment: Fragment() {
         val login = activity?.findViewById<EditText>(R.id.login)?.text.toString()
         val password = activity?.findViewById<EditText>(R.id.password)?.text.toString()
 
-        viewModel.loginUser(login, password)
+        val loginUser = LoginUser(login, password)
+        viewModel.loginUser(loginUser)
     }
 
     private fun showMessage(value: Boolean) {
@@ -74,9 +76,9 @@ class LoginFragment: Fragment() {
         lateinit var message: String
 
         if (value) {
-            message = "Login successful"
+            message = "tak"
         }
-        else message = "Login data invalid"
+        else message = "nie"
 
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 

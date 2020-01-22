@@ -13,6 +13,9 @@
     <string name="login_label">Login</string>
     <string name="password_label">Hasło</string>
     <string name="repeat_password_label">Powtórz hasło</string>
+    <string name="user_does_not_exists">Użytkownik nie istnieje</string>
+    <string name="user_exists">Logowanie pomyślne</string>
+    <string name="login_error">Coś poszło nie tak</string>
     <!-- End of login -->
 
     <!-- Task list / main window -->
