@@ -3,8 +3,7 @@ package com.example.todolist.model.dal.UserAPI
 import com.example.todolist.model.LoginUser
 import com.example.todolist.model.User
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UserService {
     @POST("users/login")
@@ -13,6 +12,7 @@ interface UserService {
     @POST("users/add")
     fun registerUser(@Body registerUser: User): Call<String>
 
-//    @GET("users/login")
-//    fun loginUser(): Call<Boolean>
+    @GET("users/search/{fragName}")
+    fun searchUser(@Path("fragName") fragName: String): Call<List<User>>
+
 }

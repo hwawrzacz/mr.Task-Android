@@ -26,4 +26,9 @@ class UserRepository {
     fun registerUser(registerUser: User): MutableLiveData<String> {
         return userAPI.registerUser(registerUser)
     }
+
+    // testowane na registration viewmodel i registration fragment - tam są funkcje
+    fun searchUser(fragName: String): MutableLiveData<List<User>> {
+        return userAPI.searchUser(fragName)
+    }
 }
