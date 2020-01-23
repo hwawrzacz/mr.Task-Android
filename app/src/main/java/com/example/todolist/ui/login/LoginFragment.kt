@@ -11,8 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.model.LoginUser
 import com.example.todolist.ui.registration.RegistrationFragment
@@ -42,9 +40,6 @@ class LoginFragment: Fragment() {
         val viewModelProvider = LoginViewModelFactory()
         val viewModel = ViewModelProviders.of(this, viewModelProvider)
             .get(LoginViewModel::class.java)
-//
-//        // Zgłoszenie obserwatora
-//        viewModel.getIsLoggedSuccessfully().observe(this, Observer{ this.showMessage(it)})
 
         // Open registration fragment
         view.link_register.setOnClickListener{
@@ -72,28 +67,12 @@ class LoginFragment: Fragment() {
                 lateinit var message: String
 
                 message = data.toString()
-
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
                 output?.text = message
             }
             else {
                 Log.v("NIE","DZIALA")
             }
         })
-    }
-
-    private fun showMessage(value: Boolean) {
-        val output = view?.findViewById<TextView>(R.id.login_data_test)
-        lateinit var message: String
-
-        if (value) {
-            message = "tak"
-        }
-        else message = "nie"
-
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-
-        output?.text = message
     }
 }
