@@ -32,14 +32,8 @@ class LoginFragment: Fragment() {
 
         // Start loging-in process
         view.button_login.setOnClickListener{
-//            Toast.makeText(context, "Starting loging-in process", Toast.LENGTH_SHORT).show()
             this.loginUser()
         }
-
-        // Tworzenie ViewModelu
-        val viewModelProvider = LoginViewModelFactory()
-        val viewModel = ViewModelProviders.of(this, viewModelProvider)
-            .get(LoginViewModel::class.java)
 
         // Open registration fragment
         view.link_register.setOnClickListener{
@@ -52,6 +46,7 @@ class LoginFragment: Fragment() {
     }
 
     private fun loginUser() {
+
         // Tworzenie ViewModelu
         val viewModelProvider = LoginViewModelFactory()
         val viewModel = ViewModelProviders.of(this, viewModelProvider)

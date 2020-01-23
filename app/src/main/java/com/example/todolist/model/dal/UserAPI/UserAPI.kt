@@ -3,6 +3,7 @@ package com.example.todolist.model.dal.UserAPI
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist.model.LoginUser
+import com.example.todolist.model.User
 import com.google.gson.GsonBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,6 +40,24 @@ class UserAPI {
         })
 
         return loginUserExists
+    }
+
+    fun registerUser(registerUser: User): MutableLiveData<String> {
+        var status = MutableLiveData<String>()
+        val call = service.registerUser(registerUser)
+
+        call.enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if (response.isSuccessful) {
+                    status.value = response!!.body()!!
+                }
+            }
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.v("REGISTER USER API ERROR", t.toString())
+            }
+        })
+
+        return status
     }
 
 }

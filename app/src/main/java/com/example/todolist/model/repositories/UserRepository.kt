@@ -2,6 +2,7 @@ package com.example.todolist.model.repositories
 
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist.model.LoginUser
+import com.example.todolist.model.User
 import com.example.todolist.model.dal.UserAPI.UserAPI
 
 class UserRepository {
@@ -20,5 +21,9 @@ class UserRepository {
 
     fun loginUser(loginUser: LoginUser): MutableLiveData<Boolean> {
         return userAPI.loginUser(loginUser)
+    }
+
+    fun registerUser(registerUser: User): MutableLiveData<String> {
+        return userAPI.registerUser(registerUser)
     }
 }
