@@ -9,12 +9,20 @@ import com.example.todolist.model.dal.UserAPI.UserAPI
 import org.jetbrains.anko.doAsync
 
 class UserRepository {
-    fun getUserPersonalData(login: String): User? {
-//        return MockDatabase.findUserByLogin(login)
-        return User("a","b","s")
+
+    companion object {
+        private var instance: UserRepository? = null
+
+        fun getInstance(): UserRepository {
+            if(instance==null)
+                instance = UserRepository()
+            return instance as UserRepository
+        }
     }
 
-    fun loginUser(loginUser: LoginUser): Boolean {
-        return UserAPI.loginUser(loginUser)
+    val userAPI = UserAPI()
+
+    fun loginUser(loginUser: LoginUser): MutableLiveData<Boolean> {
+        return userAPI.loginUser(loginUser)
     }
 }

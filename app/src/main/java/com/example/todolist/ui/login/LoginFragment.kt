@@ -8,18 +8,16 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.model.LoginUser
 import com.example.todolist.ui.registration.RegistrationFragment
 import com.example.todolist.ui.manager.MyFragmentManager
 import kotlinx.android.synthetic.main.login_fragment.view.*
-import org.w3c.dom.Text
 
 class LoginFragment: Fragment() {
     // viewModel może być polem klasy, czy lepiej tworzyć wewnątrz każdej metody?
@@ -44,9 +42,9 @@ class LoginFragment: Fragment() {
         val viewModelProvider = LoginViewModelFactory()
         val viewModel = ViewModelProviders.of(this, viewModelProvider)
             .get(LoginViewModel::class.java)
-
-        // Zgłoszenie obserwatora
-        viewModel.getIsLoggedSuccessfully().observe(this, Observer{ this.showMessage(it)})
+//
+//        // Zgłoszenie obserwatora
+//        viewModel.getIsLoggedSuccessfully().observe(this, Observer{ this.showMessage(it)})
 
         // Open registration fragment
         view.link_register.setOnClickListener{
@@ -68,7 +66,21 @@ class LoginFragment: Fragment() {
         val password = activity?.findViewById<EditText>(R.id.password)?.text.toString()
 
         val loginUser = LoginUser(login, password)
-        viewModel.loginUser(loginUser)
+        viewModel.loginUser(loginUser).observe(this, Observer { data ->
+            if (data != null) {
+                val output = view?.findViewById<TextView>(R.id.login_data_test)
+                lateinit var message: String
+
+                message = data.toString()
+
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+                output?.text = message
+            }
+            else {
+                Log.v("NIE","DZIALA")
+            }
+        })
     }
 
     private fun showMessage(value: Boolean) {

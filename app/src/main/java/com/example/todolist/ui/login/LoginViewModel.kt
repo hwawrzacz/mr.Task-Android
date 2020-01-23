@@ -8,13 +8,13 @@ import com.example.todolist.model.repositories.UserRepository
 
 class LoginViewModel: ViewModel() {
     private var isLoggedSuccessfuly = MutableLiveData<Boolean>()
-    private val repository = UserRepository()
+    private val repository = UserRepository.getInstance()
 
     fun getIsLoggedSuccessfully(): LiveData<Boolean> {
         return this.isLoggedSuccessfuly
     }
 
-    fun loginUser(loginUser: LoginUser) {
-        this.isLoggedSuccessfuly.value = repository.loginUser(loginUser)
+    fun loginUser(loginUser: LoginUser): LiveData<Boolean> {
+        return repository.loginUser(loginUser)
     }
 }
