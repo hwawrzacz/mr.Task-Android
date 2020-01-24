@@ -19,8 +19,8 @@ class Task(var id: Int? = null,
            var description: String,
            var creationDate: String,
            var expirationDate: String,
-           var authorId: Int,
-           var receiverId: Int?) {
+           var authorLogin: String,
+           var receiverLogin: String?) {
 
     override fun toString(): String {
         return "$id, $title, ${status.value}, ${priority.value}, $creationDate"

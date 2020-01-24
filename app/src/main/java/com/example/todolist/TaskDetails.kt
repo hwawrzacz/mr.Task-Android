@@ -9,7 +9,7 @@ import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.model.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_task_details.*
-import kotlinx.android.synthetic.main.fragment_new_task.view.*
+import kotlinx.android.synthetic.main.fragment_edit_task.view.*
 
 class TaskDetails : AppCompatActivity() {
 
@@ -74,10 +74,10 @@ class TaskDetails : AppCompatActivity() {
         val priority = parsePriority(intent.getStringExtra("priority")!!)
         val creationDate = intent.getStringExtra("creationDate")
         val expirationDate = intent.getStringExtra("expirationDate")
-        val authorId = intent.getIntExtra("authorId", 0)
-        val receiverId = intent.getIntExtra("receiverId", 0)
+        val authorLogin = intent.getStringExtra("authorLogin")
+        val receiverLogin = intent.getStringExtra("receiverLogin")
 
-        this.task = Task(id, title!!, status, priority, description!!, creationDate!!, expirationDate!!, authorId, receiverId)
+        this.task = Task(id, title!!, status, priority, description!!, creationDate!!, expirationDate!!, authorLogin!!, receiverLogin)
     }
 
     private fun fillInputsWithData() {

@@ -12,6 +12,7 @@
     <color name="backgroundLvl0">#EEE</color>
     <color name="backgroundLvl1">#F6F6F6</color>
     <color name="backgroundLvl2">#FEFEFE</color>
+    <color name="white">#FFF</color>
 
     <!-- Text -->
     <color name="TextOnDark">#FFF</color>

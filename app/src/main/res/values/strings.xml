@@ -22,10 +22,21 @@
     <string name="last_task_title">Ostatnie zadania</string>
     <string name="title_add_task">Dodaj zadanie</string>
     <string name="title_task_preview">Podgląd zadania</string>
+    <!-- End of task list -->
+
+    <!-- Task -->
     <string name="task_priority_label">Priorytet:</string>
     <string name="task_status_label">Status:</string>
-    <string name="task_last_modified_label">Ostatnio modyfikowane:</string>
-    <!-- End of task list -->
+    <string name="task_created_label">Utworzone</string>
+    <string name="task_by_label">przez</string>
+    <string name="task_last_modified_label">Ostatnio modyfikowane</string>
+    <string name="task_deadline_label">Termin</string>
+    <string name="deadline_button_label">Termin</string>
+
+    <string name="task_placeholder_description">Opis</string>
+    <string name="task_placeholder_title">Tytuł</string>
+    <string name="task_placeholder_receiver">Odbiorca</string>
+    <!-- End of task -->
 
     <!-- Task example -->
     <string name="task_id_example">1</string>
@@ -48,11 +59,6 @@
     <string name="button_save_text">Zapisz</string>
     <string name="button_update_text">Zaktualizuj</string>
     <!-- End of buttons -->
-
-    <!-- Text placeholders -->
-    <string name="placeholder_description">Opis</string>
-    <string name="placeholder_title">Tytuł</string>
-    <!-- End of text placeholders -->
 
     <!--Common-->
     <string name="common_title">Tytuł</string>

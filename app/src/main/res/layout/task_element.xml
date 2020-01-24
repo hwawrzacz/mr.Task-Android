@@ -25,20 +25,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/header_wrapper"
+            <TextView
+                android:id="@+id/task_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="@string/task_title_example"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp" >
 
                 <TextView
-                    android:id="@+id/task_title"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="9"
-                    android:text="@string/task_title_example"
-                    android:textSize="20sp" />
+                    android:text="@string/task_deadline_label"
+                    android:layout_marginRight="4sp"/>
+
+                <TextView
+                    android:id="@+id/task_expiration_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/task_date_example"/>
             </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -97,19 +110,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/task_priority_label"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/task_expiration_date"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/task_date_example"
-                android:textSize="14sp"
-                android:textAlignment="textEnd"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/task_description"
-                app:layout_constraintStart_toStartOf="@+id/task_description"
-                app:layout_constraintTop_toBottomOf="@+id/task_description" />
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/task_created_label"
+                    android:layout_marginRight="4sp"></TextView>
+
+                <TextView
+                    android:id="@+id/task_creation_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11/02/2019"
+                    android:layout_marginRight="4sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/task_by_label"
+                    android:layout_marginRight="4sp"></TextView>
+
+                <TextView
+                    android:id="@+id/task_author_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hubwaw"></TextView>
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </androidx.cardview.widget.CardView>

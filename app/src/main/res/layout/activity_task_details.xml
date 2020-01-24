@@ -84,7 +84,7 @@
         android:text="@string/task_last_modified_label"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/task_date"
+        app:layout_constraintEnd_toStartOf="@+id/task_expiration_date"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="@+id/task_description"
         app:layout_constraintTop_toBottomOf="@+id/task_description"

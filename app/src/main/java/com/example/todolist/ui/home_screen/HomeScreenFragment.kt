@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.model.dal.DBHelper
-import com.example.todolist.ui.new_task.NewTaskFragment
+import com.example.todolist.ui.edit_task.EditTaskFragment
 import com.example.todolist.model.Task
 import com.example.todolist.ui.recyclerViewAdapters.TaskListAdapter
+import kotlinx.android.synthetic.main.home_screen.*
 import kotlinx.android.synthetic.main.home_screen.view.*
 
 class HomeScreenFragment : Fragment() {
@@ -22,14 +24,14 @@ class HomeScreenFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.home_screen, container, false)
 
         view.fab.setOnClickListener {
-            val fragment =
-                NewTaskFragment.instance()
+            val fragment = EditTaskFragment()
             showFragment(fragment)
         }
+
+        refreshList(view)
 
         return view
     }
@@ -63,9 +65,12 @@ class HomeScreenFragment : Fragment() {
         }
     }
 
-    private fun refreshList() {
+    private fun refreshList(view: View?) {
+        Log.i("schab", "refreshed")
         val tasks = this.getAllTasksOrderedByStatus()
         val adapter = TaskListAdapter(activity as Context, tasks)
+        view?.task_list?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        view?.task_list?.adapter = adapter
     }
 
     private fun getAllTasksOrderedByStatus(): MutableList<Task> {
