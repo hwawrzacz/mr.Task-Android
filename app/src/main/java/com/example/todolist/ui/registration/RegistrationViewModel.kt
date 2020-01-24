@@ -11,4 +11,8 @@ class RegistrationViewModel: ViewModel() {
     fun registerUser(registerUser: User): LiveData<String> {
         return repository.registerUser(registerUser)
     }
+
+//    fun searchUser(fragName: String): LiveData<List<User>> {
+//        return repository.searchUser(fragName)
+//    }
 }

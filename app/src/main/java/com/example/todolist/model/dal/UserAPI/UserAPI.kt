@@ -60,4 +60,23 @@ class UserAPI {
         return status
     }
 
+    fun searchUser(fragName: String): MutableLiveData<List<User>> {
+        var listMatchingUsers = MutableLiveData<List<User>>()
+        val call = service.searchUser(fragName)
+
+        call.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    listMatchingUsers.value = response!!.body()!!
+                    Log.i("users", listMatchingUsers.value.toString())
+                }
+            }
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                Log.v("SEARCH USER API ERROR", t.toString())
+            }
+        })
+
+        return listMatchingUsers
+    }
+
 }

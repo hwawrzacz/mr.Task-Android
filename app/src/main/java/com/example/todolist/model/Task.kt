@@ -1,5 +1,31 @@
 package com.example.todolist.model
 
+import com.google.gson.annotations.SerializedName
+
+class Task(@SerializedName("id")
+           var id: Int? = null,
+           @SerializedName("title")
+           var title: String,
+           @SerializedName("status")
+           var status: Status = Status.NEW,
+           @SerializedName("priority")
+           var priority: Priority,
+           @SerializedName("description")
+           var description: String,
+           @SerializedName("creationDate")
+           var creationDate: String,
+           @SerializedName("expirationDate")
+           var expirationDate: String,
+           @SerializedName("authorId")
+           var authorId: Int,
+           @SerializedName("receiverId")
+           var receiverId: Int?) {
+
+    override fun toString(): String {
+        return "$id, $title, ${status.value}, ${priority.value}, $creationDate"
+    }
+}
+
 enum class Priority(val value: String) {
     HIGH("Wysoki"),
     MEDIUM("Średni"),
@@ -11,22 +37,6 @@ enum class Status(val value: String) {
     ASSIGNED("W trakcie"),
     FINISHED("Zakończone")
 }
-
-class Task(var id: Int? = null,
-           var title: String,
-           var status: Status = Status.NEW,
-           var priority: Priority,
-           var description: String,
-           var creationDate: String,
-           var expirationDate: String,
-           var authorLogin: String,
-           var receiverLogin: String?) {
-
-    override fun toString(): String {
-        return "$id, $title, ${status.value}, ${priority.value}, $creationDate"
-    }
-}
-
 
 fun parseStatus(rawValue: String): Status{
     var status = Status.NEW

@@ -65,6 +65,23 @@ class RegistrationFragment: Fragment() {
             Toast.makeText(context, "Hasła muszą się zgadzać", Toast.LENGTH_SHORT).show()
         }
 
-
     }
+
+    //    private fun searchUser() {
+//
+//        val viewModelProvider = RegistrationViewModelFactory()
+//        val viewModel = ViewModelProviders.of(this, viewModelProvider)
+//            .get(RegistrationViewModel::class.java)
+//
+//        val fragName = activity?.findViewById<EditText>(R.id.login)?.text.toString()
+//
+//        viewModel.searchUser(fragName).observe(this, Observer { data ->
+//            if (data != null) {
+//                Toast.makeText(context, data.toString(), Toast.LENGTH_SHORT).show()
+//            }
+//            else {
+//                Log.v("NIE","DZIALA")
+//            }
+//        })
+//    }
 }
