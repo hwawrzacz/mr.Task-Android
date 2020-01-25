@@ -112,7 +112,7 @@ class EditTaskFragment: Fragment(){
             creationDate, expirationDate,
             author, receiver)
 
-        this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
+        this.editTaskV.observe(this, Observer {
             when (it) {
                 ResponseCode.SAVE_OK -> {
                     closeEditFragment()
