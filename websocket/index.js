@@ -1,24 +1,35 @@
 const WebSocket = require('ws');
 
+const serverPort = 3000
 const wsServer = new WebSocket.Server({
-    port: 3000,
+    port: serverPort,
 });
 
-wsServer.on('connection', (websocket) => {
-    websocket.on('message', (message) => {
+console.log(`Websocket server is ready and listening on port ${serverPort}`);
+
+wsServer.on('connection', websocket => {
+    websocket.on('message', message => {
         switch (message) {
             case 'NEW_CLIENT_CONNECTED': {
-                console.log('New client connected - message');
+                console.log(`New client connected. Currently connected clients: ${wsServer.clients.size}`);
                 break;
             }
             case 'CHANGES_MADE': {
                 broadcast(websocket, 'CHANGES_MADE');
                 break;
             }
+            case 'CLIENT_DISCONNECTED': {
+                console.log(`Client disconnected. Currently connected clients: ${wsServer.clients.size}`);
+                break;
+            }
             default: { break; }
         }
     });
 });
+
+wsServer.on('close', websocket => {
+    broadcast(websocket, 'One connection closed')
+})
 
 const broadcast = (websocket, message) => {
     wsServer.clients.forEach(client => {

@@ -1,15 +1,18 @@
 const connection = new WebSocket('ws://192.168.0.105:3000');
 
+const textarea = document.querySelector('#received');
+const buttond_send = document.querySelector('#send');
+
 connection.addEventListener('open', () => {
-    console.log('connected');
+    textarea.value = `Connected`;
     connection.send('NEW_CLIENT_CONNECTED');
 });
 
-connection.addEventListener('message', (message) => {
-    console.log(message);
-})
+connection.addEventListener('message', () => {
+    textarea.value = `${textarea.value} \nNew change`;
+});
 
-const buttond_send = document.querySelector('#send');
+
 buttond_send.addEventListener('click', () => {
     connection.send('CHANGES_MADE');
 });
