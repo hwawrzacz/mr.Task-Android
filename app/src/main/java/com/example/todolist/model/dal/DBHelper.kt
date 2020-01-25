@@ -87,8 +87,8 @@ class DBHelper(context: Context?): SQLiteOpenHelper(context, NAME, null, VERSION
             put(TASKS_COLUMNS.STATUS, task.status.value)
             put(TASKS_COLUMNS.CREATION_DATE, task.creationDate)
             put(TASKS_COLUMNS.EXPIRATION_DATE, task.expirationDate)
-            put(TASKS_COLUMNS.AUTHOR_ID, task.authorLogin)
-            put(TASKS_COLUMNS.RECEIVER_ID, task.receiverLogin)
+            put(TASKS_COLUMNS.AUTHOR_ID, task.author.login)
+            put(TASKS_COLUMNS.RECEIVER_ID, task.receiver?.login)
         }
 
         db.insert(TABLES.TASKS, null, newTask)
@@ -102,21 +102,21 @@ class DBHelper(context: Context?): SQLiteOpenHelper(context, NAME, null, VERSION
         val tasks = mutableListOf<Task>()
 
         while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMNS.ID))
-            val title = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.TITLE))
-            val description = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.DESCRIPTION))
-            val creationDate = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.CREATION_DATE))
-            val expirationDate = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.EXPIRATION_DATE))
-            val authorLogin = cursor.getString((cursor.getColumnIndex(TASKS_COLUMNS.AUTHOR_ID)))
-            val receiverLogin = cursor.getString((cursor.getColumnIndex(TASKS_COLUMNS.RECEIVER_ID)))
+//            val id = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMNS.ID))
+//            val title = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.TITLE))
+//            val description = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.DESCRIPTION))
+//            val creationDate = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.CREATION_DATE))
+//            val expirationDate = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.EXPIRATION_DATE))
+//            val authorLogin = cursor.getString((cursor.getColumnIndex(TASKS_COLUMNS.AUTHOR_ID)))
+//            val receiverLogin = cursor.getString((cursor.getColumnIndex(TASKS_COLUMNS.RECEIVER_ID)))
+//
+//            val statusRaw = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.STATUS))
+//            val status = parseStatus(statusRaw)
+//
+//            val priorityRaw = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.PRIORITY))
+//            val priority = parsePriority(priorityRaw)
 
-            val statusRaw = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.STATUS))
-            val status = parseStatus(statusRaw)
-
-            val priorityRaw = cursor.getString(cursor.getColumnIndex(TASKS_COLUMNS.PRIORITY))
-            val priority = parsePriority(priorityRaw)
-
-            tasks.add(Task(id, title, status, priority, description, creationDate, expirationDate, authorLogin, receiverLogin))
+//            tasks.add(Task(id, title, status, priority, description, creationDate, expirationDate, authorLogin, receiverLogin))
         }
         cursor.close()
 
@@ -135,8 +135,8 @@ class DBHelper(context: Context?): SQLiteOpenHelper(context, NAME, null, VERSION
             put(TASKS_COLUMNS.STATUS, task.status.value)
             put(TASKS_COLUMNS.CREATION_DATE, task.creationDate)
             put(TASKS_COLUMNS.EXPIRATION_DATE, task.expirationDate)
-            put(TASKS_COLUMNS.AUTHOR_ID, task.authorLogin)
-            put(TASKS_COLUMNS.RECEIVER_ID, task.receiverLogin)
+            put(TASKS_COLUMNS.AUTHOR_ID, task.author.login)
+            put(TASKS_COLUMNS.RECEIVER_ID, task.receiver?.login)
         }
 
         db.update(TABLES.TASKS, newTask, "${TASKS_COLUMNS.ID} = ${task.id}", null)

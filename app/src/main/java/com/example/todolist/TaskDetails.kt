@@ -67,17 +67,17 @@ class TaskDetails : AppCompatActivity() {
     }
 
     private fun initializeTaskObject() {
-        val id = intent.getIntExtra("id", 0)
-        val title = intent.getStringExtra("title")
-        val description = intent.getStringExtra("description")
-        val status = parseStatus(intent.getStringExtra("status")!!)
-        val priority = parsePriority(intent.getStringExtra("priority")!!)
-        val creationDate = intent.getStringExtra("creationDate")
-        val expirationDate = intent.getStringExtra("expirationDate")
-        val authorLogin = intent.getStringExtra("authorLogin")
-        val receiverLogin = intent.getStringExtra("receiverLogin")
+//        val id = intent.getIntExtra("id", 0)
+//        val title = intent.getStringExtra("title")
+//        val description = intent.getStringExtra("description")
+//        val status = parseStatus(intent.getStringExtra("status")!!)
+//        val priority = parsePriority(intent.getStringExtra("priority")!!)
+//        val creationDate = intent.getStringExtra("creationDate")
+//        val expirationDate = intent.getStringExtra("expirationDate")
+//        val authorLogin = intent.getStringExtra("authorLogin")
+//        val receiverLogin = intent.getStringExtra("receiverLogin")
 
-        this.task = Task(id, title!!, status, priority, description!!, creationDate!!, expirationDate!!, authorLogin!!, receiverLogin)
+//        this.task = Task(id, title!!, status, priority, description!!, creationDate!!, expirationDate!!, authorLogin!!, receiverLogin)
     }
 
     private fun fillInputsWithData() {

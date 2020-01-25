@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class TaskAPI {
-    val BASE_URL = "http://192.168.0.105:8080/"
+    val BASE_URL = "http:/192.168.0.105:8080/"
 
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -26,17 +26,19 @@ class TaskAPI {
     val service = retrofit.create(TaskService::class.java)
 
     fun getAllTasks(): MutableLiveData<List<Task>> {
+        Log.i("schab", "API")
         val listOfAllTasks = MutableLiveData<List<Task>>()
         val call = service.getAllTasks()
 
         call.enqueue(object : Callback<List<Task>> {
             override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
+                Log.i("schab", "API Response ${response.body()}")
                 if (response.isSuccessful) {
                     listOfAllTasks.value = response.body()!!
                 }
             }
             override fun onFailure(call: Call<List<Task>>, t: Throwable) {
-                Log.v("GET ALL TASKS API ERROR", t.toString())
+                Log.i("schab", "API Response Error ${t}")
             }
         })
 

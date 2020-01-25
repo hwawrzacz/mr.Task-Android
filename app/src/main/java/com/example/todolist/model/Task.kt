@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class Task(@SerializedName("id")
            var id: Int? = null,
-           @SerializedName("title")
+           @SerializedName("name")
            var title: String,
            @SerializedName("status")
            var status: Status = Status.NEW,
@@ -16,29 +16,35 @@ class Task(@SerializedName("id")
            var creationDate: String,
            @SerializedName("expirationDate")
            var expirationDate: String,
-           @SerializedName("authorId")
-           var authorId: Int,
-           @SerializedName("receiverId")
-           var receiverId: Int?) {
+           @SerializedName("author")
+           var author: User,
+           @SerializedName("receiver")
+           var receiver: User?) {
 
     override fun toString(): String {
-        return "$id, $title, ${status.value}, ${priority.value}, $creationDate"
+        return "$id, $title, $description, ${status.value}, ${priority.value}, ${author.login}, ${receiver?.login}, $creationDate"
     }
 }
 
 enum class Priority(val value: String) {
+    @SerializedName("Wysoki")
     HIGH("Wysoki"),
+    @SerializedName("Średni")
     MEDIUM("Średni"),
+    @SerializedName("Niski")
     LOW("Niski")
 }
 
 enum class Status(val value: String) {
+    @SerializedName("Nowe")
     NEW("Nowe"),
+    @SerializedName("W trakcie")
     ASSIGNED("W trakcie"),
+    @SerializedName("Zakończone")
     FINISHED("Zakończone")
 }
 
-fun parseStatus(rawValue: String): Status{
+fun parseStatus(rawValue: String): Status {
     var status = Status.NEW
 
     when (rawValue) {

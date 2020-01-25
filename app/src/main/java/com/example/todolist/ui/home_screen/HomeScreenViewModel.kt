@@ -1,11 +1,18 @@
 package com.example.todolist.ui.home_screen
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.todolist.model.Task
-import com.example.todolist.model.repositories.UserRepository
+import com.example.todolist.model.repositories.TaskRepository
 
 class HomeScreenViewModel: ViewModel() {
 
-//    fun getAllFromApi(): LiveData<List<Task>> {}
+    private val repository = TaskRepository.getInstance()
+
+    fun getAllFromApi(): LiveData<List<Task>>{
+        Log.i("schab", "ViewModel")
+        return this.repository.getAllTasks()
+    }
 }

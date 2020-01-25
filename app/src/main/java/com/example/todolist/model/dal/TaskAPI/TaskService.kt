@@ -31,5 +31,4 @@ interface TaskService {
 
     @POST("/tasks/update")
     fun updateTask(@Body task: Task): Call<String>
-
 }

@@ -6,18 +6,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.ui.edit_task.EditTaskFragment
 import com.example.todolist.model.Task
+import com.example.todolist.ui.edit_task.EditTaskViewModelFactory
 import com.example.todolist.ui.recyclerViewAdapters.TaskListAdapter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.home_screen.*
 import kotlinx.android.synthetic.main.home_screen.view.*
 
 class HomeScreenFragment : Fragment() {
+
+    lateinit var homeScreenViewModel: HomeScreenViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +38,12 @@ class HomeScreenFragment : Fragment() {
             showFragment(fragment)
         }
 
-        refreshList(view)
+        createViewModel()
+        bindViewModelFields()
+        refreshListFromApi()
+//        refreshList(view)
 
         return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.i("onActivityCreated","created")
-        Log.i("onActivityCreated",activity.toString())
     }
 
     private fun showFragment(fragment: Fragment) {
@@ -65,17 +69,44 @@ class HomeScreenFragment : Fragment() {
         }
     }
 
-    private fun refreshList(view: View?) {
-        Log.i("schab", "refreshed")
-        val tasks = this.getAllTasksOrderedByStatus()
-        val adapter = TaskListAdapter(activity as Context, tasks)
-        view?.task_list?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        view?.task_list?.adapter = adapter
+    private fun createViewModel() {
+        val viewModelFactory = HomeScreenViewModelFactory()
+        this.homeScreenViewModel = ViewModelProviders.of(this, viewModelFactory)
+        .get(HomeScreenViewModel::class.java)
     }
 
+    private fun bindViewModelFields() {
+        this.homeScreenViewModel.getAllFromApi().observe(this, Observer {
+            if ( it !== null ) {
+                refreshList(it)
+                Log.i("schab", "list received ${it}")
+            }
+            else {
+                displayErrorMessage()
+            }
+        })
+    }
+
+    private fun refreshListFromApi() {
+        this.homeScreenViewModel.getAllFromApi()
+    }
+
+    private fun refreshList(listOfTasks: List<Task>) {
+        Log.i("schab", "success")
+        val adapter = TaskListAdapter(activity as Context, listOfTasks)
+        task_list?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        task_list?.adapter = adapter
+    }
+
+    private fun displayErrorMessage() {
+        Toast.makeText(context, "Nie można pobrać danych", Toast.LENGTH_LONG).show()
+    }
+
+    //#region read from database
     private fun getAllTasksOrderedByStatus(): MutableList<Task> {
         val db = DBHelper(activity)
         return db.getAllTasksOrderByStatus()
     }
+    //#endregion
 }
 

@@ -6,6 +6,6 @@ import androidx.lifecycle.ViewModelProviders
 
 class HomeScreenViewModelFactory: ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeScreenFragment() as T
+        return HomeScreenViewModel() as T
     }
 }

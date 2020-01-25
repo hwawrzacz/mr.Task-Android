@@ -17,7 +17,7 @@ import com.example.todolist.TaskDetails
 import com.example.todolist.model.Priority
 import com.example.todolist.ui.manager.MyFragmentManager
 
-class TaskListAdapter(val context: Context, var tasks: MutableList<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
+class TaskListAdapter(val context: Context, var tasks: List<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_element, parent, false)
@@ -37,7 +37,7 @@ class TaskListAdapter(val context: Context, var tasks: MutableList<Task>) : Recy
         holder.STATUS.text = task.status.value
         holder.CREATION_DATE.text = task.creationDate
         holder.EXPIRATION_DATE.text = task.expirationDate
-        holder.AUTHOR.text = task.authorLogin
+        holder.AUTHOR.text = task.author.login
 
         var icon = selectPriorityIcon(task.priority)
         holder.TITLE.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0,0)
@@ -68,8 +68,8 @@ class TaskListAdapter(val context: Context, var tasks: MutableList<Task>) : Recy
                 putExtra("status", task.status.value)
                 putExtra("description", task.description)
                 putExtra("expirationDate", task.expirationDate)
-                putExtra("author", task.authorLogin)
-                putExtra("receiver", task.receiverLogin)
+                putExtra("author", task.author.login)
+                putExtra("receiver", task.receiver?.login)
             }
 
         startActivity(context, intent, null)

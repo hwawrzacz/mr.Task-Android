@@ -13,12 +13,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.example.todolist.model.dal.DBHelper
-import com.example.todolist.model.Priority
-import com.example.todolist.model.Task
 import com.example.todolist.R
 import com.example.todolist.fragments.FragmentListener
-import com.example.todolist.model.Status
-import com.example.todolist.model.parsePriority
+import com.example.todolist.model.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_edit_task.*
 import kotlinx.android.synthetic.main.fragment_edit_task.view.*
@@ -91,10 +88,11 @@ class EditTaskFragment: Fragment(){
         val creationDate = dateFormatter.format(Date())
         val expirationDate = dateFormatter.format(Date())
         // TODO: remove hardcoded user login, get logged user from database.
-        val authorLogin = "hubwaw"
-        var receiverLogin = null
+//        val authorLogin = "hubwaw"
+//        var receiverLogin = null
+        val author = User("hubwaw", "Hubert", "Wawrzacz", null)
 
-        val newTask = Task(null, title, status, priority, description, creationDate, expirationDate, authorLogin, receiverLogin)
+        val newTask = Task(null, title, status, priority, description, creationDate, expirationDate, author, null)
 
         dbHelper.addTask(newTask)
     }

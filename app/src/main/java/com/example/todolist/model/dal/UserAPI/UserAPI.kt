@@ -30,12 +30,13 @@ class UserAPI {
 
         call.enqueue(object : Callback<Boolean> {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                Log.i("schab" , "User API Response")
                 if (response.isSuccessful) {
                     loginUserExists.value = response!!.body()!!
                 }
             }
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                Log.v("LOGIN USER API ERROR", t.toString())
+                Log.i("schab" , "User API Error $t")
             }
         })
 
