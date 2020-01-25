@@ -15,4 +15,7 @@ interface UserService {
     @GET("users/search/{fragName}")
     fun searchUser(@Path("fragName") fragName: String): Call<List<User>>
 
+    @GET("users/all")
+    fun getAllUsers(): Call<List<User>>
+
 }

@@ -2,6 +2,7 @@ package com.example.todolist.model.dal.TaskAPI
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.todolist.enums.ResponseCode
 import com.example.todolist.model.Task
 import com.google.gson.GsonBuilder
 import retrofit2.Call
@@ -26,13 +27,11 @@ class TaskAPI {
     val service = retrofit.create(TaskService::class.java)
 
     fun getAllTasks(): MutableLiveData<List<Task>> {
-        Log.i("schab", "API")
         val listOfAllTasks = MutableLiveData<List<Task>>()
         val call = service.getAllTasks()
 
         call.enqueue(object : Callback<List<Task>> {
             override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
-                Log.i("schab", "API Response ${response.body()}")
                 if (response.isSuccessful) {
                     listOfAllTasks.value = response.body()!!
                 }
@@ -117,18 +116,20 @@ class TaskAPI {
         return listOfAllTasks
     }
 
-    fun createTask(newTask: Task): MutableLiveData<String> {
-        val status = MutableLiveData<String>()
+    fun createTask(newTask: Task): MutableLiveData<ResponseCode> {
+        val status = MutableLiveData<ResponseCode>()
         val call = service.createTask(newTask)
 
-        call.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+        call.enqueue(object : Callback<ResponseCode> {
+            override fun onResponse(call: Call<ResponseCode>, response: Response<ResponseCode>) {
+                Log.i("schab", "taksApi add send body ${newTask}")
+                Log.i("schab", "taksApi add call ${response.body()}")
                 if (response.isSuccessful) {
                     status.value = response.body()!!
                 }
             }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.v("TASKS BY TITLE ERROR", t.toString())
+            override fun onFailure(call: Call<ResponseCode>, t: Throwable) {
+                Log.i("schab", "taksApi add error ${t}")
             }
         })
 

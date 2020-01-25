@@ -1,5 +1,6 @@
 package com.example.todolist.model.repositories
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.todolist.model.LoginUser
 import com.example.todolist.model.User
@@ -30,5 +31,9 @@ class UserRepository {
     // testowane na registration viewmodel i registration fragment - tam są funkcje
     fun searchUser(fragName: String): MutableLiveData<List<User>> {
         return userAPI.searchUser(fragName)
+    }
+
+    fun getAllUsers(): MutableLiveData<List<User>> {
+        return this.userAPI.getAllUsers()
     }
 }

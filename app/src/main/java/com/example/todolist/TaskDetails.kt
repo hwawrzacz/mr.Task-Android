@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import com.example.todolist.enums.Priority
+import com.example.todolist.enums.Status
 import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.model.*
 import com.google.android.material.snackbar.Snackbar

@@ -12,7 +12,6 @@ class HomeScreenViewModel: ViewModel() {
     private val repository = TaskRepository.getInstance()
 
     fun getAllFromApi(): LiveData<List<Task>>{
-        Log.i("schab", "ViewModel")
         return this.repository.getAllTasks()
     }
 }

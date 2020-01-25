@@ -1,26 +1,51 @@
 package com.example.todolist.ui.edit_task
 
 import android.security.ConfirmationAlreadyPresentingException
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.todolist.model.Priority
+import com.example.todolist.enums.Priority
+import com.example.todolist.enums.ResponseCode
+import com.example.todolist.model.Task
+import com.example.todolist.model.User
+import com.example.todolist.model.dal.TaskAPI.TaskAPI
+import com.example.todolist.model.repositories.TaskRepository
+import com.example.todolist.model.repositories.UserRepository
 import java.io.FileDescriptor
 import java.time.Year
 import java.util.*
 
 class EditTaskViewModel: ViewModel() {
+    val taskRepository = TaskRepository()
+    val userRepository = UserRepository()
+
+    var title = MutableLiveData<String>()
+    var priority = MutableLiveData<Priority>()
+    var expirationDate = MutableLiveData<Date>()
+    var description = MutableLiveData<String>()
+    var receiverLogin = MutableLiveData<String>()
+    var receiver = MutableLiveData<User>()
+
     var isTitleValid = MutableLiveData<Boolean>()
     var isDateValid = MutableLiveData<Boolean>()
-    var isReceiverValid = MutableLiveData<Boolean>()
+    var isFormValid = MutableLiveData<Boolean>()
 
-    var title = ""
-    var priority = Priority.LOW
-    var expirationDate = Date()
-    var description = ""
-    var receiverLogin = ""
+    init {
+        this.title.value = ""
+        this.priority.value = Priority.LOW
+        this.expirationDate.value = Date()
+        this.description.value = ""
+        this.receiverLogin.value = ""
+    }
 
-    fun createNewTask() {
+    fun createNewTask(newTask: Task): LiveData<ResponseCode> {
+        Log.i("schab", "ViewModel addTask")
+        return this.taskRepository.createNewTask(newTask)
+    }
 
+    fun getAllUsers(): LiveData<List<User>>{
+        return this.userRepository.getAllUsers()
     }
 
     fun updateTask() {
@@ -36,7 +61,7 @@ class EditTaskViewModel: ViewModel() {
     }
 
     private fun validateTitle() {
-        this.isTitleValid.value = this.title.isNullOrEmpty()
+        this.isTitleValid.value = this.title.value.isNullOrEmpty()
     }
 
     private fun validateExpirationDate() {

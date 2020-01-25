@@ -1,5 +1,6 @@
 package com.example.todolist.model.dal.TaskAPI
 
+import com.example.todolist.enums.ResponseCode
 import com.example.todolist.model.Task
 import retrofit2.Call
 import retrofit2.http.Body
@@ -24,7 +25,7 @@ interface TaskService {
     fun getTasksByTitle(@Path("fragTitle") fragTitle: String): Call<List<Task>>
 
     @POST("/tasks/add")
-    fun createTask(@Body task: Task): Call<String>
+    fun createTask(@Body task: Task): Call<ResponseCode>
 
     @POST("/tasks/delete")
     fun deleteTask(@Body task: Task): Call<String>

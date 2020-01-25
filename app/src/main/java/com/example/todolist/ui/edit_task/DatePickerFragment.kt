@@ -7,9 +7,13 @@ import android.util.Log
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import java.util.*
 
-class DatePickerFragment(private val taskViewModel: EditTaskViewModel): DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickerFragment(): DialogFragment(), DatePickerDialog.OnDateSetListener {
+
+    private lateinit var editTaskViewModel: EditTaskViewModel
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val calendar = Calendar.getInstance()
@@ -20,12 +24,16 @@ class DatePickerFragment(private val taskViewModel: EditTaskViewModel): DialogFr
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
 
+        // initialize ViewModel
+        val taskViewModelFactory = EditTaskViewModelFactory()
+        this.editTaskViewModel = ViewModelProviders.of(this, taskViewModelFactory)
+            .get(EditTaskViewModel::class.java)
+
         return DatePickerDialog(activity as FragmentActivity, this, year, month, dayOfMonth)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val date = Date(year, month, dayOfMonth)
-        Log.i("schaboszczak", date.toString())
-        taskViewModel.expirationDate = date
+        this.editTaskViewModel.expirationDate.value = date
     }
 }

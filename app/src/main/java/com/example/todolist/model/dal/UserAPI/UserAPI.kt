@@ -30,7 +30,6 @@ class UserAPI {
 
         call.enqueue(object : Callback<Boolean> {
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                Log.i("schab" , "User API Response")
                 if (response.isSuccessful) {
                     loginUserExists.value = response!!.body()!!
                 }
@@ -61,6 +60,24 @@ class UserAPI {
         return status
     }
 
+    fun getAllUsers(): MutableLiveData<List<User>> {
+        var usersLogins = MutableLiveData<List<User>>()
+        val call = service.getAllUsers()
+
+        call.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if (response.isSuccessful) {
+                    usersLogins.value = response!!.body()!!
+                }
+            }
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                Log.i("schab" , "User API Error $t")
+            }
+        })
+
+        return usersLogins
+    }
+
     fun searchUser(fragName: String): MutableLiveData<List<User>> {
         var listMatchingUsers = MutableLiveData<List<User>>()
         val call = service.searchUser(fragName)
@@ -69,11 +86,11 @@ class UserAPI {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 if (response.isSuccessful) {
                     listMatchingUsers.value = response!!.body()!!
-                    Log.i("users", listMatchingUsers.value.toString())
+                    Log.i("schab", listMatchingUsers.value.toString())
                 }
             }
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Log.v("SEARCH USER API ERROR", t.toString())
+                Log.v("schab", t.toString())
             }
         })
 

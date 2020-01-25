@@ -1,5 +1,7 @@
 package com.example.todolist.model
 
+import com.example.todolist.enums.Priority
+import com.example.todolist.enums.Status
 import com.google.gson.annotations.SerializedName
 
 class Task(@SerializedName("id")
@@ -26,23 +28,6 @@ class Task(@SerializedName("id")
     }
 }
 
-enum class Priority(val value: String) {
-    @SerializedName("Wysoki")
-    HIGH("Wysoki"),
-    @SerializedName("Średni")
-    MEDIUM("Średni"),
-    @SerializedName("Niski")
-    LOW("Niski")
-}
-
-enum class Status(val value: String) {
-    @SerializedName("Nowe")
-    NEW("Nowe"),
-    @SerializedName("W trakcie")
-    ASSIGNED("W trakcie"),
-    @SerializedName("Zakończone")
-    FINISHED("Zakończone")
-}
 
 fun parseStatus(rawValue: String): Status {
     var status = Status.NEW
@@ -59,7 +44,7 @@ fun parseStatus(rawValue: String): Status {
     return status
 }
 
-fun parsePriority(rawValue: String): Priority{
+fun parsePriority(rawValue: String): Priority {
     var priority = Priority.LOW
 
     when (rawValue) {

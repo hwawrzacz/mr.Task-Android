@@ -16,9 +16,7 @@ import com.example.todolist.R
 import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.ui.edit_task.EditTaskFragment
 import com.example.todolist.model.Task
-import com.example.todolist.ui.edit_task.EditTaskViewModelFactory
 import com.example.todolist.ui.recyclerViewAdapters.TaskListAdapter
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.home_screen.*
 import kotlinx.android.synthetic.main.home_screen.view.*
 
@@ -40,7 +38,6 @@ class HomeScreenFragment : Fragment() {
 
         createViewModel()
         bindViewModelFields()
-        refreshListFromApi()
 //        refreshList(view)
 
         return view
@@ -79,7 +76,6 @@ class HomeScreenFragment : Fragment() {
         this.homeScreenViewModel.getAllFromApi().observe(this, Observer {
             if ( it !== null ) {
                 refreshList(it)
-                Log.i("schab", "list received ${it}")
             }
             else {
                 displayErrorMessage()
@@ -87,12 +83,7 @@ class HomeScreenFragment : Fragment() {
         })
     }
 
-    private fun refreshListFromApi() {
-        this.homeScreenViewModel.getAllFromApi()
-    }
-
     private fun refreshList(listOfTasks: List<Task>) {
-        Log.i("schab", "success")
         val adapter = TaskListAdapter(activity as Context, listOfTasks)
         task_list?.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         task_list?.adapter = adapter

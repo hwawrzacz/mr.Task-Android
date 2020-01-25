@@ -2,22 +2,20 @@ package com.example.todolist.ui.recyclerViewAdapters
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.model.Task
 import com.example.todolist.R
 import com.example.todolist.TaskDetails
-import com.example.todolist.model.Priority
-import com.example.todolist.ui.manager.MyFragmentManager
+import com.example.todolist.enums.Priority
 
-class TaskListAdapter(val context: Context, var tasks: List<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
+class TaskListAdapter(private val context: Context, private var tasks: List<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_element, parent, false)
@@ -39,7 +37,7 @@ class TaskListAdapter(val context: Context, var tasks: List<Task>) : RecyclerVie
         holder.EXPIRATION_DATE.text = task.expirationDate
         holder.AUTHOR.text = task.author.login
 
-        var icon = selectPriorityIcon(task.priority)
+        val icon = selectPriorityIcon(task.priority)
         holder.TITLE.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0,0)
 
         holder.itemView.setOnClickListener {
@@ -47,7 +45,7 @@ class TaskListAdapter(val context: Context, var tasks: List<Task>) : RecyclerVie
         }
     }
 
-    fun selectPriorityIcon(priority: Priority): Int {
+    private fun selectPriorityIcon(priority: Priority): Int {
         val fullStar = R.drawable.round_star_24
         val halfStar = R.drawable.round_star_half_24
         val emptyStar = R.drawable.round_star_border_24
@@ -59,7 +57,7 @@ class TaskListAdapter(val context: Context, var tasks: List<Task>) : RecyclerVie
         }
     }
 
-    fun openEditTaskActivity(task: Task) {
+    private fun openEditTaskActivity(task: Task) {
         val intent = Intent(context, TaskDetails::class.java)
             .apply {
                 putExtra("id", task.id)
@@ -71,6 +69,8 @@ class TaskListAdapter(val context: Context, var tasks: List<Task>) : RecyclerVie
                 putExtra("author", task.author.login)
                 putExtra("receiver", task.receiver?.login)
             }
+
+
 
         startActivity(context, intent, null)
     }

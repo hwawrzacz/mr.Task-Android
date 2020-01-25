@@ -96,8 +96,20 @@
         app:layout_constraintTop_toBottomOf="@+id/priority_wrapper"
         app:layout_constraintVertical_bias="0.0" />
 
-    <EditText
-        android:id="@+id/task_receiver"
+    <TextView
+        android:id="@+id/receiver_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/task_placeholder_receiver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/task_description"
+        app:layout_constraintStart_toStartOf="@+id/task_description"
+        app:layout_constraintTop_toBottomOf="@+id/task_description"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Spinner
+        android:id="@+id/receiver_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxHeight="200dp"
@@ -105,11 +117,10 @@
         android:textSize="18sp"
         android:drawableLeft="@drawable/round_person_24"
         android:inputType="textCapSentences|textMultiLine"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/task_description"
-        app:layout_constraintStart_toStartOf="@+id/task_description"
-        app:layout_constraintTop_toBottomOf="@+id/task_description"
+        app:layout_constraintEnd_toEndOf="@+id/receiver_label"
+        app:layout_constraintStart_toStartOf="@+id/receiver_label"
+        app:layout_constraintTop_toBottomOf="@+id/receiver_label"
         app:layout_constraintVertical_bias="0.0" />
 
 
@@ -120,10 +131,10 @@
         android:layout_marginTop="16dp"
         android:text="@string/button_close_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/task_receiver"
+        app:layout_constraintEnd_toEndOf="@+id/receiver_spinner"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/task_receiver"
-        app:layout_constraintTop_toBottomOf="@+id/task_receiver"
+        app:layout_constraintStart_toStartOf="@+id/receiver_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/receiver_spinner"
         app:layout_constraintVertical_bias="0.0"
         android:backgroundTint="@color/colorWarning"
         android:textColor="@color/TextOnWarning" />
@@ -138,8 +149,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_cancel"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/task_receiver"
-        app:layout_constraintTop_toBottomOf="@+id/task_receiver"
+        app:layout_constraintStart_toStartOf="@+id/receiver_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/receiver_spinner"
         app:layout_constraintVertical_bias="0.0" />
 
 

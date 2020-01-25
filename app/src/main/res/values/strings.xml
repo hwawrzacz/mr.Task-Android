@@ -60,6 +60,8 @@
     <string name="button_update_text">Zaktualizuj</string>
     <!-- End of buttons -->
 
+
+
     <!--Common-->
     <string name="common_title">Tytuł</string>
     <string name="common_priority">Priorytet</string>
@@ -73,11 +75,17 @@
     <string name="not_all_fields_are_valid">Nie podano wszystkich danych</string>
     <string name="confirm">Potwierdź</string>
     <string name="question_confirm_delete_task">Czy na pewno chcesz usunąć zadanie?</string>
-    <!-- Messages -->
 
-    <!-- Actions -->
+        <!-- Errors -->
+        <string name="error_while_processing">Podczas przetwarzania wystąpił problem</string>
+        <string name="error_while_adding_task">Podczas dodawania zadania wystąpił problem</string>
+        <string name="error_task_already_exists">Takie zadanie już istnieje</string>
+    <!-- End of messages -->
+
+    <!-- Buttons actions -->
     <string name="button_action_positive">Tak</string>
     <string name="button_action_negative">Nie</string>
     <string name="button_action_cancel">Anuluj</string>
+    <!-- End of buttons actions -->
 
 </resources>
