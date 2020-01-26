@@ -3,10 +3,7 @@ package com.example.todolist.model.dal.TaskAPI
 import com.example.todolist.enums.ResponseCode
 import com.example.todolist.model.Task
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface TaskService {
     @GET("tasks/all")
@@ -27,9 +24,9 @@ interface TaskService {
     @POST("/tasks/add")
     fun createTask(@Body task: Task): Call<ResponseCode>
 
-    @POST("/tasks/delete")
-    fun deleteTask(@Body task: Task): Call<String>
+    @DELETE("/tasks/delete/{id}")
+    fun deleteTask(@Path("id") id: Int): Call<ResponseCode>
 
-    @POST("/tasks/update")
-    fun updateTask(@Body task: Task): Call<String>
+    @PUT("/tasks/update")
+    fun updateTask(@Body task: Task): Call<ResponseCode>
 }

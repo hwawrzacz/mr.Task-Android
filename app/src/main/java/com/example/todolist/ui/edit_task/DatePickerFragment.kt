@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePickerFragment(): DialogFragment(), DatePickerDialog.OnDateSetListener {
@@ -34,6 +35,7 @@ class DatePickerFragment(): DialogFragment(), DatePickerDialog.OnDateSetListener
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val date = Date(year, month, dayOfMonth)
-        this.editTaskViewModel.expirationDate.value = date
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        this.editTaskViewModel.expirationDate.value = dateFormatter.format(date)
     }
 }

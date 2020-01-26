@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
     enum class ResponseCode(val value: String) {
     SAVE_OK("SAVE_OK"),
     SAVE_FAILED("SAVE_FAILED"),
-    ALREADY_EXISTS("ALREADY_EXISTS")
+    ALREADY_EXISTS("ALREADY_EXISTS"),
+    DELETE_OK("DELETE_OK"),
+    DELETE_FAILED("DELETE_FAILED")
 }
 
 enum class Priority(val value: String) {

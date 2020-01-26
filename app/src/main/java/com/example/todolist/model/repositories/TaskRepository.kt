@@ -20,12 +20,25 @@ class TaskRepository {
     private val taskApi = TaskAPI()
 
     fun createNewTask(newTask: Task): MutableLiveData<ResponseCode> {
-        Log.i("schab", "taskRepository add")
         return this.taskApi.createTask(newTask)
+    }
+
+    fun updateTask(updatedTask: Task): MutableLiveData<ResponseCode> {
+        Log.i("schab", "update taskRepository")
+        return this.taskApi.updateTask(updatedTask)
     }
 
     fun getAllTasks(): MutableLiveData<List<Task>> {
         return taskApi.getAllTasks()
+    }
+
+    fun getTaskById(id: Int): MutableLiveData<Task> {
+        return taskApi.getTaskById(id)
+    }
+
+    fun deleteTask(id: Int): MutableLiveData<ResponseCode> {
+        Log.i("schab","delete Repo")
+        return this.taskApi.deleteTask(id)
     }
 }
 

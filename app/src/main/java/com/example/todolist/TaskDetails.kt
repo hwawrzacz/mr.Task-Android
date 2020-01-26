@@ -10,7 +10,7 @@ import com.example.todolist.enums.Status
 import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.model.*
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_task_details.*
+import kotlinx.android.synthetic.main.fragment_task_details.*
 import kotlinx.android.synthetic.main.fragment_edit_task.view.*
 
 class TaskDetails : AppCompatActivity() {
@@ -19,7 +19,7 @@ class TaskDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_details)
+        setContentView(R.layout.fragment_task_details)
 
         supportActionBar!!.setTitle(R.string.title_task_preview)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

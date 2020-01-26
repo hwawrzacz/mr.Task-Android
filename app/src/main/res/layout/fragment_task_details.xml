@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/activity_task_details"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/new_task_fragment"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintCircleRadius="5dp"
-    android:background="@color/backgroundLvl0"
-    android:clickable="true"
+    tools:context=".TaskDetails"
     android:padding="16dp">
 
     <!-- Title-->
@@ -24,6 +24,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+    <LinearLayout
+        android:id="@+id/status_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/task_title"
+        app:layout_constraintStart_toStartOf="@+id/task_title"
+        app:layout_constraintTop_toBottomOf="@+id/task_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginEnd="4sp"
+            android:text="@string/task_status_label" />
+
+        <TextView
+            android:id="@+id/task_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/task_status_example"/>
+     </LinearLayout>
+
     <!-- Priority-->
     <LinearLayout
         android:id="@+id/priority_wrapper"
@@ -35,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/status_wrapper"
         app:layout_constraintStart_toStartOf="@+id/status_wrapper"
-        app:layout_constraintTop_toBottomOf="@+id/task_title"
+        app:layout_constraintTop_toBottomOf="@+id/status_wrapper"
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
@@ -77,7 +104,9 @@
             android:drawableEnd="@drawable/round_calendar_today_24"
             android:hint="@string/deadline_button_label"
             android:textSize="18sp" />
+
     </LinearLayout>
+
 
     <!-- Description -->
     <EditText
@@ -123,35 +152,48 @@
         app:layout_constraintTop_toBottomOf="@+id/receiver_label"
         app:layout_constraintVertical_bias="0.0" />
 
-
-    <Button
-        android:id="@+id/button_cancel"
-        android:layout_width="wrap_content"
+    <!-- Buttons-->
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/button_close_text"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/details_receiver_spinner"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/details_receiver_spinner"
+        app:layout_constraintEnd_toEndOf="@+id/task_description"
+        app:layout_constraintStart_toStartOf="@+id/task_description"
         app:layout_constraintTop_toBottomOf="@+id/details_receiver_spinner"
-        app:layout_constraintVertical_bias="0.0"
-        android:backgroundTint="@color/colorWarning"
-        android:textColor="@color/TextOnWarning" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/button_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/button_save_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_cancel"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/details_receiver_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/details_receiver_spinner"
-        app:layout_constraintVertical_bias="0.0" />
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_update_text"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <Button
+            android:id="@+id/button_assign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_assign_task_text"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button_finish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_finish_text"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/button_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorWarning"
+            android:text="@string/button_delete_text"
+            android:textColor="@color/TextOnWarning" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
