@@ -1,5 +1,6 @@
 package com.example.todolist.ui.edit_task
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.todolist.R
@@ -18,6 +20,7 @@ import com.example.todolist.fragments.FragmentListener
 import com.example.todolist.model.*
 import kotlinx.android.synthetic.main.fragment_edit_task.view.*
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class EditTaskFragment: Fragment(){
@@ -31,8 +34,7 @@ class EditTaskFragment: Fragment(){
     ): View? {
         val view = inflater.inflate(R.layout.fragment_edit_task, container, false)
         view.task_expiration_date.setOnClickListener{
-            val datePickerFragment = DatePickerFragment()
-            datePickerFragment.show(this.fragmentManager, "datePicker")
+            this.pickDate()
         }
 
         // Register viewModel
@@ -71,6 +73,27 @@ class EditTaskFragment: Fragment(){
         })
     }
 
+    private fun pickDate() {
+        val calendar = Calendar.getInstance()
+
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+
+        val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener{view, nYear, nMonth, nDayOfMonth ->
+            var date = ""
+            if ((nMonth + 1) < 10) {
+                date = nYear.toString() + "-0" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+            } else {
+                date = nYear.toString() + "-" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+            }
+
+            this.view?.task_expiration_date?.text = date
+        }, year, month, dayOfMonth)
+
+        dpd.show()
+    }
+
     private fun setPrioritiesSpinner() {
         val priorities = listOf(Priority.LOW.value, Priority.MEDIUM.value, Priority.HIGH.value)
         val priorityAdapter = ArrayAdapter<String>(context!!, R.layout.spinner_item, priorities)
@@ -101,9 +124,9 @@ class EditTaskFragment: Fragment(){
         val description = view?.task_description?.text.toString()
         val status = Status.NEW
         val priority = parsePriority(view?.task_priority_spinner?.selectedItem.toString())
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())
-        val creationDate = dateFormatter.format(Date())
-        val expirationDate = dateFormatter.format(Date())
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val creationDate= Calendar.getInstance().get(Calendar.YEAR).toString() + "-" + (Calendar.getInstance().get(Calendar.MONTH) + 1).toString() + '-' + (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1).toString()
+        val expirationDate = view?.task_expiration_date?.text.toString()
         // TODO: remove hardcoded user login, get logged user from database.
         val author = User("hubwaw", "Hubert", "Wawrzacz", null)
         val receiver = view?.receiver_spinner?.selectedItem as User?
@@ -147,7 +170,7 @@ class EditTaskFragment: Fragment(){
     private fun inputsAreValid(): Boolean {
         return (!view!!.task_title.text.toString().isBlank() &&
                 view!!.task_priority_spinner.selectedItemPosition > -1 &&
-                !view!!.task_description.text.toString().isBlank())
+                !view!!.task_description.text.toString().isBlank() )
     }
 
     private fun resetInputs() {
