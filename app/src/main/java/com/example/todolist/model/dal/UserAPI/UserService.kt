@@ -18,4 +18,7 @@ interface UserService {
     @GET("users/all")
     fun getAllUsers(): Call<List<User>>
 
+    @GET("users/{login}")
+    fun getUserByLogin(@Path("login") login: String): Call<User>
+
 }

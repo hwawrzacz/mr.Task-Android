@@ -36,4 +36,8 @@ class UserRepository {
     fun getAllUsers(): MutableLiveData<List<User>> {
         return this.userAPI.getAllUsers()
     }
+
+    fun getUserByLogin(login: String): MutableLiveData<User> {
+        return this.userAPI.getUserByLogin(login)
+    }
 }

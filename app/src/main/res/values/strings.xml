@@ -3,6 +3,8 @@
 
     <!-- Login -->
     <string name="login_title">Logowanie</string>
+    <string name="login_true_message">Zalogowano</string>
+    <string name="login_false_message">Błędne dane</string>
     <string name="register_title">Rejestracja</string>
     <string name="login_text">Zaloguj się</string>
     <string name="register_text">Zarejestruj się</string>
