@@ -109,7 +109,7 @@ class TaskAPI {
                 }
             }
             override fun onFailure(call: Call<List<Task>>, t: Throwable) {
-                Log.v("CREATE TASK API ERROR", t.toString())
+                Log.i("schab", t.toString())
             }
         })
 
@@ -136,36 +136,41 @@ class TaskAPI {
         return status
     }
 
-    fun updateTask(updateTask: Task): MutableLiveData<String> {
-        val status = MutableLiveData<String>()
-        val call = service.updateTask(updateTask)
+    fun updateTask(updateTask: Task): MutableLiveData<ResponseCode> {
+            Log.v("schab", "update API")
+            val status = MutableLiveData<ResponseCode>()
+            val call = service.updateTask(updateTask)
 
-        call.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if (response.isSuccessful) {
-                    status.value = response.body()!!
+            call.enqueue(object : Callback<ResponseCode> {
+                override fun onResponse(call: Call<ResponseCode>, response: Response<ResponseCode>) {
+                    Log.i("schab", "update call")
+                    if (response.isSuccessful) {
+                        Log.v("schab", "update call success")
+                        status.value = response.body()!!
+                    }
                 }
-            }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.v("UPDATE TASK API ERROR", t.toString())
-            }
-        })
+                override fun onFailure(call: Call<ResponseCode>, t: Throwable) {
+                    Log.i("schab", t.toString())
+                }
+            })
 
         return status
     }
 
-    fun deleteTask(deleteTask: Task): MutableLiveData<String> {
-        val status = MutableLiveData<String>()
-        val call = service.deleteTask(deleteTask)
+    fun deleteTask(id: Int): MutableLiveData<ResponseCode> {
+        val status = MutableLiveData<ResponseCode>()
+        val call = service.deleteTask(id)
+        Log.i("schab","delete API")
 
-        call.enqueue(object : Callback<String> {
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+        call.enqueue(object : Callback<ResponseCode> {
+            override fun onResponse(call: Call<ResponseCode>, response: Response<ResponseCode>) {
+                Log.i("schab","delete response ${response.body()}")
                 if (response.isSuccessful) {
                     status.value = response.body()!!
                 }
             }
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                Log.v("DELETE TASK API ERROR", t.toString())
+            override fun onFailure(call: Call<ResponseCode>, t: Throwable) {
+                Log.i("schab", t.toString())
             }
         })
 

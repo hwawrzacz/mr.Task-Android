@@ -79,6 +79,7 @@
         <!-- Errors -->
         <string name="error_while_processing">Podczas przetwarzania wystąpił problem</string>
         <string name="error_while_adding_task">Podczas dodawania zadania wystąpił problem</string>
+        <string name="error_while_deleting_task">Podczas usuwania zadania wystąpił problem</string>
         <string name="error_task_already_exists">Takie zadanie już istnieje</string>
     <!-- End of messages -->
 

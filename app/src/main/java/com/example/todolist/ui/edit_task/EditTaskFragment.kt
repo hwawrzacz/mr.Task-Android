@@ -33,16 +33,30 @@ class EditTaskFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_edit_task, container, false)
+
         view.task_expiration_date.setOnClickListener{
             this.pickDate()
         }
 
-        // Register viewModel
+        this.addViewModel()
+        this.addButtonsListeners(view)
+        this.addObservers()
+        this.setPrioritiesSpinner()
+
+        return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    private fun addViewModel() {
         val viewModelProvider = EditTaskViewModelFactory()
         editTaskViewModel = ViewModelProviders.of(this, viewModelProvider)
             .get(EditTaskViewModel::class.java)
+    }
 
-        // Button onClick listener
+    private fun addButtonsListeners(view: View) {
         view.button_add.setOnClickListener{
             this.handleButtonAddOnClick()
         }
@@ -50,15 +64,6 @@ class EditTaskFragment: Fragment(){
         view.button_cancel.setOnClickListener{
             activity?.onBackPressed()
         }
-
-        return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        this.setPrioritiesSpinner()
-        this.addObservers()
     }
 
     private fun addObservers() {
@@ -103,10 +108,10 @@ class EditTaskFragment: Fragment(){
 
     private fun setUsersSpinner(users: List<User>) {
         if (users !== null) {
-//            val logins = users.map { it.login }
+            //            val logins = users.map { it.login }
             val loginsAdapter = ArrayAdapter<User>(context!!, R.layout.spinner_item, users)
             loginsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            view?.receiver_spinner?.adapter = loginsAdapter
+            view?.details_receiver_spinner?.adapter = loginsAdapter
         }
     }
 
@@ -129,25 +134,29 @@ class EditTaskFragment: Fragment(){
         val expirationDate = view?.task_expiration_date?.text.toString()
         // TODO: remove hardcoded user login, get logged user from database.
         val author = User("hubwaw", "Hubert", "Wawrzacz", null)
-        val receiver = view?.receiver_spinner?.selectedItem as User?
+        val receiver = view?.details_receiver_spinner?.selectedItem as User?
 
         val newTask = Task(null, title, status, priority, description,
             creationDate, expirationDate,
             author, receiver)
 
         this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
-            when (it) {
-                ResponseCode.SAVE_OK -> {
-                    closeEditFragment()
-                }
-                ResponseCode.SAVE_FAILED -> {
-                    this.showToastLong(R.string.error_while_adding_task)
-                }
-                ResponseCode.ALREADY_EXISTS -> {
-                    this.showToastLong(R.string.error_task_already_exists)
-                }
-            }
+            this.handleTaskSaveResponse(it);
         })
+    }
+
+    private fun handleTaskSaveResponse(code: ResponseCode) {
+        when (code) {
+            ResponseCode.SAVE_OK -> {
+                closeEditFragment()
+            }
+            ResponseCode.SAVE_FAILED -> {
+                this.showToastLong(R.string.error_while_adding_task)
+            }
+            ResponseCode.ALREADY_EXISTS -> {
+                this.showToastLong(R.string.error_task_already_exists)
+            }
+        }
     }
 
     private fun showToastLong(messageId: Int) {

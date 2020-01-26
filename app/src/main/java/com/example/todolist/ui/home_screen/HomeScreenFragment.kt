@@ -36,6 +36,7 @@ class HomeScreenFragment : Fragment() {
             showFragment(fragment)
         }
 
+        initializeWebSocket()
         createViewModel()
         bindViewModelFields()
 //        refreshList(view)
@@ -52,6 +53,10 @@ class HomeScreenFragment : Fragment() {
             .addToBackStack(fragment.tag)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+    }
+
+    private fun initializeWebSocket() {
+
     }
 
     private fun setActionBarToNewTask() {
