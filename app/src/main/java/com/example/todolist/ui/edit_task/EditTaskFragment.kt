@@ -111,7 +111,7 @@ class EditTaskFragment: Fragment(){
             //            val logins = users.map { it.login }
             val loginsAdapter = ArrayAdapter<User>(context!!, R.layout.spinner_item, users)
             loginsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            view?.details_receiver_spinner?.adapter = loginsAdapter
+            view?.receiver_spinner?.adapter = loginsAdapter
         }
     }
 
@@ -137,21 +137,9 @@ class EditTaskFragment: Fragment(){
             val author = it
             val newTask = Task(null, title, status, priority, description,
                 creationDate, expirationDate, author, receiver)
-            Log.i("AAAAAAAAAAAAAAAAAAAAAAA","AAAAAAAAAAAAAAAAAAAA")
 
             this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
-                Log.i("AAAAAAAAAAAAAAAAAAAAAAA","AAAAAAAAAAAAAAAAAAAA")
-                when (it) {
-                    ResponseCode.SAVE_OK -> {
-                        closeEditFragment()
-                    }
-                    ResponseCode.SAVE_FAILED -> {
-                        this.showToastLong(R.string.error_while_adding_task)
-                    }
-                    ResponseCode.ALREADY_EXISTS -> {
-                        this.showToastLong(R.string.error_task_already_exists)
-                    }
-                }
+                this.handleTaskSaveResponse(it)
             })
         })
     }
