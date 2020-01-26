@@ -97,4 +97,23 @@ class UserAPI {
         return listMatchingUsers
     }
 
+    fun getUserByLogin(login: String): MutableLiveData<User> {
+        var user = MutableLiveData<User>()
+        val call = service.getUserByLogin(login)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    user.value = response!!.body()!!
+                    Log.i("schab", user.value.toString())
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.v("schab", t.toString())
+            }
+        })
+
+        return user
+    }
+
 }

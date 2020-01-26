@@ -10,6 +10,7 @@ import com.example.todolist.enums.ResponseCode
 import com.example.todolist.model.Task
 import com.example.todolist.model.User
 import com.example.todolist.model.dal.TaskAPI.TaskAPI
+import com.example.todolist.model.repositories.LoggedUserRepository
 import com.example.todolist.model.repositories.TaskRepository
 import com.example.todolist.model.repositories.UserRepository
 import java.io.FileDescriptor
@@ -17,8 +18,9 @@ import java.time.Year
 import java.util.*
 
 class EditTaskViewModel: ViewModel() {
-    val taskRepository = TaskRepository()
-    val userRepository = UserRepository()
+    private val taskRepository = TaskRepository()
+    private val userRepository = UserRepository()
+    private val loggedUser = LoggedUserRepository.getInstance()
 
     var title = MutableLiveData<String>()
     var priority = MutableLiveData<Priority>()
@@ -52,12 +54,12 @@ class EditTaskViewModel: ViewModel() {
 
     }
 
-    fun getUsersByLogin() {
-
+    fun getUserByLogin(login: String): LiveData<User> {
+        return this.userRepository.getUserByLogin(login)
     }
 
-    private fun validateAllInputs() {
-
+    fun getLoggedUser(): String {
+        return loggedUser.getLoggedUser()
     }
 
     private fun validateTitle() {

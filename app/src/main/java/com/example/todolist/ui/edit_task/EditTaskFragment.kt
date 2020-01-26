@@ -124,29 +124,30 @@ class EditTaskFragment: Fragment(){
         val description = view?.task_description?.text.toString()
         val status = Status.NEW
         val priority = parsePriority(view?.task_priority_spinner?.selectedItem.toString())
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val creationDate= Calendar.getInstance().get(Calendar.YEAR).toString() + "-" + (Calendar.getInstance().get(Calendar.MONTH) + 1).toString() + '-' + (Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 1).toString()
         val expirationDate = view?.task_expiration_date?.text.toString()
-        // TODO: remove hardcoded user login, get logged user from database.
-        val author = User("hubwaw", "Hubert", "Wawrzacz", null)
         val receiver = view?.receiver_spinner?.selectedItem as User?
 
-        val newTask = Task(null, title, status, priority, description,
-            creationDate, expirationDate,
-            author, receiver)
+        this.editTaskViewModel.getUserByLogin(this.editTaskViewModel.getLoggedUser()).observe(this, Observer {
+            val author = it
+            val newTask = Task(null, title, status, priority, description,
+                creationDate, expirationDate, author, receiver)
+            Log.i("AAAAAAAAAAAAAAAAAAAAAAA","AAAAAAAAAAAAAAAAAAAA")
 
-        this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
-            when (it) {
-                ResponseCode.SAVE_OK -> {
-                    closeEditFragment()
+            this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
+                Log.i("AAAAAAAAAAAAAAAAAAAAAAA","AAAAAAAAAAAAAAAAAAAA")
+                when (it) {
+                    ResponseCode.SAVE_OK -> {
+                        closeEditFragment()
+                    }
+                    ResponseCode.SAVE_FAILED -> {
+                        this.showToastLong(R.string.error_while_adding_task)
+                    }
+                    ResponseCode.ALREADY_EXISTS -> {
+                        this.showToastLong(R.string.error_task_already_exists)
+                    }
                 }
-                ResponseCode.SAVE_FAILED -> {
-                    this.showToastLong(R.string.error_while_adding_task)
-                }
-                ResponseCode.ALREADY_EXISTS -> {
-                    this.showToastLong(R.string.error_task_already_exists)
-                }
-            }
+            })
         })
     }
 
