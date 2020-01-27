@@ -177,7 +177,8 @@ class TaskDetailsFragment: Fragment() {
     private fun handleTaskUpdateResponse(code: ResponseCode) {
         when (code) {
             ResponseCode.SAVE_OK -> {
-                closeEditFragment()
+                onActivityCreated(null)
+                this.showToastLong("Zapisano pomyślnie")
             }
             ResponseCode.SAVE_FAILED -> {
                 this.showToastLong(R.string.error_while_adding_task)
@@ -191,7 +192,7 @@ class TaskDetailsFragment: Fragment() {
     private fun handleTaskDeleteResponse(code: ResponseCode) {
         when (code) {
             ResponseCode.DELETE_OK -> {
-                closeEditFragment()
+                this.showToastLong(R.string.task_deleted)
             }
             ResponseCode.DELETE_FAILED -> {
                 this.showToastLong(R.string.error_while_deleting_task)
@@ -232,6 +233,10 @@ class TaskDetailsFragment: Fragment() {
         Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
     }
 
+    private fun showToastLong(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
     private fun loadReceivers() {
         this.editTaskViewModel.getAllUsers().observe(this, Observer {
             this.populateReceiversSpinner(it)
@@ -262,7 +267,7 @@ class TaskDetailsFragment: Fragment() {
         selectReceiver(receiver)
     }
 
-    private fun handleExpirationDateChange(date: String) {
+    private fun handleExpirationDateChange(date: String?) {
         view?.task_expiration_date?.text = date
         this.editTaskViewModel.expirationDate.value = date
     }

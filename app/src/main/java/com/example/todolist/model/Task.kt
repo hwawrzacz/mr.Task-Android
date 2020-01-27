@@ -17,7 +17,7 @@ class Task(@SerializedName("id")
            @SerializedName("creationDate")
            var creationDate: String,
            @SerializedName("expirationDate")
-           var expirationDate: String,
+           var expirationDate: String?,
            @SerializedName("author")
            var author: User,
            @SerializedName("receiver")

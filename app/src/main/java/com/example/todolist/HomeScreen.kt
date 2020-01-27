@@ -25,17 +25,6 @@ class HomeScreen : AppCompatActivity(), FragmentListener {
         myFragmentManager.replaceWithPrimaryFragment(homeScreenFragment)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        this.myFragmentManager.closeFragment()
-        return super.onSupportNavigateUp()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_bar, menu)
-
-        return true
-    }
-
     override fun onBackPressed() {
         setActionBarToDefault()
         super.onBackPressed()
@@ -43,21 +32,6 @@ class HomeScreen : AppCompatActivity(), FragmentListener {
 
     override fun onFragmentClosed() {
         Log.i("fragment", "Fragment closed")
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_add_task -> {
-                val addTaskFragment = EditTaskFragment()
-                this.myFragmentManager.replaceWithSubFragment(addTaskFragment)
-                true
-            }
-            R.id.action_show_list -> {
-                this.myFragmentManager.closeFragment()
-                true
-            }
-            else -> false
-        }
     }
 
     private fun setActionBarToDefault() {

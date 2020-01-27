@@ -38,23 +38,8 @@ class TaskListAdapter(private val context: Context, private var tasks: List<Task
         holder.EXPIRATION_DATE.text = task.expirationDate
         holder.AUTHOR.text = task.author.login
 
-        val icon = selectPriorityIcon(task.priority)
-        holder.TITLE.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0,0)
-
         holder.itemView.setOnClickListener {
             this.openEditTaskActivity(task)
-        }
-    }
-
-    private fun selectPriorityIcon(priority: Priority): Int {
-        val fullStar = R.drawable.round_star_24
-        val halfStar = R.drawable.round_star_half_24
-        val emptyStar = R.drawable.round_star_border_24
-
-        return when (priority) {
-            Priority.LOW -> emptyStar
-            Priority.MEDIUM -> halfStar
-            Priority.HIGH -> fullStar
         }
     }
 

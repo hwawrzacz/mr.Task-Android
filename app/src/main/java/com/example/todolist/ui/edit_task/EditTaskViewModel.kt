@@ -70,7 +70,7 @@ class EditTaskViewModel: ViewModel() {
             priority.value!!,
             description.value!!,
             creationDate.value!!,
-            expirationDate.value!!,
+            expirationDate.value,
             author.value!!,
             receiver.value)
 
