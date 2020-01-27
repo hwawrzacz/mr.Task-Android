@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HomeScreen" />
-        <activity android:name=".TaskDetails" />
         <activity android:name=".LoginActivity" >
 
             <intent-filter>
