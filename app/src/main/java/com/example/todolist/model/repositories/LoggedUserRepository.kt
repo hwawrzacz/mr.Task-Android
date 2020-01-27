@@ -1,7 +1,6 @@
 package com.example.todolist.model.repositories
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
+import com.example.todolist.model.User
 
 class LoggedUserRepository {
 
@@ -15,15 +14,13 @@ class LoggedUserRepository {
         }
     }
 
-    private lateinit var loggedUser: String
+    private lateinit var loggedUser: User
 
-    fun setLoggedUser(login: String) {
+    fun setLoggedUser(login: User) {
         this.loggedUser = login
-        Log.i("AAAAAAAAa",this.loggedUser.toString())
     }
 
-    fun getLoggedUser(): String {
-        Log.i("AAAAAAAAa",this.loggedUser.toString())
+    fun getLoggedUser(): User {
         return this.loggedUser
     }
 
