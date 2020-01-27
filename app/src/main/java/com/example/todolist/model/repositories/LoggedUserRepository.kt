@@ -8,7 +8,7 @@ class LoggedUserRepository {
         private var instance: LoggedUserRepository? = null
 
         fun getInstance(): LoggedUserRepository{
-            if(instance==null)
+            if (instance == null)
                 instance = LoggedUserRepository()
             return instance as LoggedUserRepository
         }

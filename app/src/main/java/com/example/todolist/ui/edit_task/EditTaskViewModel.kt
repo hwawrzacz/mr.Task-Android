@@ -23,6 +23,7 @@ import java.util.*
 class EditTaskViewModel: ViewModel() {
     private val taskRepository = TaskRepository()
     private val userRepository = UserRepository()
+    private val loggedUserRepository = LoggedUserRepository.getInstance()
     private val loggedUser = LoggedUserRepository.getInstance()
 
     var task = MutableLiveData<Task>()

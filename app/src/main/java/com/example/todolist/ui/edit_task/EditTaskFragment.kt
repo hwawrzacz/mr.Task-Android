@@ -19,6 +19,11 @@ import com.example.todolist.enums.Status
 import com.example.todolist.fragments.FragmentListener
 import com.example.todolist.model.*
 import kotlinx.android.synthetic.main.fragment_edit_task.view.*
+import kotlinx.android.synthetic.main.fragment_edit_task.view.task_description
+import kotlinx.android.synthetic.main.fragment_edit_task.view.task_expiration_date
+import kotlinx.android.synthetic.main.fragment_edit_task.view.task_priority_spinner
+import kotlinx.android.synthetic.main.fragment_edit_task.view.task_title
+import kotlinx.android.synthetic.main.fragment_task_details.view.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
@@ -85,15 +90,16 @@ class EditTaskFragment: Fragment(){
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
 
-        val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener{view, nYear, nMonth, nDayOfMonth ->
+        val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener{ view, nYear, nMonth, nDayOfMonth ->
             var date = ""
             if ((nMonth + 1) < 10) {
-                date = nYear.toString() + "-0" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+                date = nYear.toString() + "-0" + (nMonth + 1).toString() + '-' + (nDayOfMonth).toString()
             } else {
-                date = nYear.toString() + "-" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+                date = nYear.toString() + "-" + (nMonth + 1).toString() + '-' + (nDayOfMonth).toString()
             }
 
             this.view?.task_expiration_date?.text = date
+            this.editTaskViewModel.expirationDate.value = date
         }, year, month, dayOfMonth)
 
         dpd.show()

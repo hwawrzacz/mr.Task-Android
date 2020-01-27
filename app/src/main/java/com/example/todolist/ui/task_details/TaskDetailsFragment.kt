@@ -79,7 +79,7 @@ class TaskDetailsFragment: Fragment() {
                 this.handleTaskUpdateResponse(it)
             })
         }
-        view.button_finish.setOnClickListener() {
+        view.button_finish.setOnClickListener {
             this.editTaskViewModel.finishTask().observe(this, Observer {
                 this.handleTaskUpdateResponse(it)
             })
@@ -219,12 +219,13 @@ class TaskDetailsFragment: Fragment() {
         val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener{ view, nYear, nMonth, nDayOfMonth ->
             var date = ""
             if ((nMonth + 1) < 10) {
-                date = nYear.toString() + "-0" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+                date = nYear.toString() + "-0" + (nMonth + 1).toString() + '-' + (nDayOfMonth).toString()
             } else {
-                date = nYear.toString() + "-" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+                date = nYear.toString() + "-" + (nMonth + 1).toString() + '-' + (nDayOfMonth).toString()
             }
 
             this.view?.task_expiration_date?.text = date
+            this.editTaskViewModel.expirationDate.value = date
         }, year, month, dayOfMonth)
 
         dpd.show()
