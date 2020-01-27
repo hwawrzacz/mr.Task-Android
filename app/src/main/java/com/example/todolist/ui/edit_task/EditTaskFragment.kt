@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -46,9 +47,33 @@ class EditTaskFragment: Fragment(){
         this.addViewModel()
         this.addButtonsListeners(view)
         this.addObservers()
-        this.setPrioritiesSpinner()
+
+
+        // Add priority change listener
+        view.task_priority_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                editTaskViewModel.priority.value =
+                    editTaskViewModel.listOfPriorities[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                editTaskViewModel.priority.value =
+                    editTaskViewModel.listOfPriorities[0]
+            }
+        }
 
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        this.setPrioritiesSpinner()
     }
 
     override fun onStart() {
@@ -106,10 +131,18 @@ class EditTaskFragment: Fragment(){
     }
 
     private fun setPrioritiesSpinner() {
-        val priorities = listOf(Priority.LOW.value, Priority.MEDIUM.value, Priority.HIGH.value)
-        val priorityAdapter = ArrayAdapter<String>(context!!, R.layout.spinner_item, priorities)
+        val priorities = listOf(Priority.LOW, Priority.MEDIUM, Priority.HIGH)
+        this.editTaskViewModel.listOfPriorities = priorities
+        val priorityAdapter = ArrayAdapter<String>(
+            context!!,
+            R.layout.spinner_item,
+            priorities.map{ priority -> priority.value })
+
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         view?.task_priority_spinner?.adapter = priorityAdapter
+
+        val priorityIndex = priorities.indexOf(this.editTaskViewModel.task.value?.priority)
+        view?.task_priority_spinner?.setSelection(priorityIndex)
     }
 
     private fun setUsersSpinner(users: List<User>) {
