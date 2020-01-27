@@ -1,6 +1,7 @@
 package com.example.todolist.ui.task_details
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -26,6 +27,7 @@ import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.ui.edit_task.EditTaskViewModel
 import com.example.todolist.ui.edit_task.EditTaskViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_edit_task.view.*
 import kotlinx.android.synthetic.main.fragment_task_details.*
 import kotlinx.android.synthetic.main.fragment_task_details.view.*
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_description
@@ -33,6 +35,7 @@ import kotlinx.android.synthetic.main.fragment_task_details.view.task_expiration
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_priority_spinner
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_title
 import kotlinx.android.synthetic.main.home_screen.view.*
+import java.util.*
 
 class TaskDetailsFragment: Fragment() {
     lateinit var editTaskViewModel: EditTaskViewModel
@@ -83,6 +86,9 @@ class TaskDetailsFragment: Fragment() {
         }
         view.button_delete.setOnClickListener {
             openDeleteDialog()
+        }
+        view.task_expiration_date.setOnClickListener {
+            this.pickDate()
         }
     }
 
@@ -201,6 +207,27 @@ class TaskDetailsFragment: Fragment() {
                 this.showToastLong(R.string.error_while_deleting_task)
             }
         }
+    }
+
+    private fun pickDate() {
+        val calendar = Calendar.getInstance()
+
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+        val year = calendar.get(Calendar.YEAR)
+
+        val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener{ view, nYear, nMonth, nDayOfMonth ->
+            var date = ""
+            if ((nMonth + 1) < 10) {
+                date = nYear.toString() + "-0" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+            } else {
+                date = nYear.toString() + "-" + (nMonth + 1).toString() + '-' + nDayOfMonth.toString()
+            }
+
+            this.view?.task_expiration_date?.text = date
+        }, year, month, dayOfMonth)
+
+        dpd.show()
     }
 
     private fun closeEditFragment() {
