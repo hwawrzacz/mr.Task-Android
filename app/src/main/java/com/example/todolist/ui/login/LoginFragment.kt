@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.todolist.HomeScreen
 import com.example.todolist.R
 import com.example.todolist.model.LoginUser
+import com.example.todolist.model.Task
 import com.example.todolist.ui.registration.RegistrationFragment
 import com.example.todolist.ui.manager.MyFragmentManager
 import kotlinx.android.synthetic.main.login_fragment.view.*
@@ -64,7 +65,10 @@ class LoginFragment: Fragment() {
 
                 message = data.toString()
                 if (message === "true") {
-                    viewModel.setLoggedUser(login)
+                    viewModel.getUserByLogin(login).observe(this, Observer {
+                        viewModel.setLoggedUser(it)
+                    })
+
                     val intent = Intent(context, HomeScreen::class.java)
                     startActivity(intent)
                     Toast.makeText(context, R.string.login_true_message, Toast.LENGTH_SHORT).show()

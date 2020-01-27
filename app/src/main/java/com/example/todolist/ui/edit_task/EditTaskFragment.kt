@@ -133,14 +133,12 @@ class EditTaskFragment: Fragment(){
         val expirationDate = view?.task_expiration_date?.text.toString()
         val receiver = view?.receiver_spinner?.selectedItem as User?
 
-        this.editTaskViewModel.getUserByLogin(this.editTaskViewModel.getLoggedUser()).observe(this, Observer {
-            val author = it
-            val newTask = Task(null, title, status, priority, description,
-                creationDate, expirationDate, author, receiver)
+        val author = editTaskViewModel.getLoggedUser()
+        val newTask = Task(null, title, status, priority, description,
+            creationDate, expirationDate, author, receiver)
 
-            this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
-                this.handleTaskSaveResponse(it)
-            })
+        this.editTaskViewModel.createNewTask(newTask).observe(this, Observer {
+            this.handleTaskSaveResponse(it)
         })
     }
 

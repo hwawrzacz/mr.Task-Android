@@ -101,12 +101,8 @@ class EditTaskViewModel: ViewModel() {
     fun getAllUsers(): LiveData<List<User>>{
         return this.userRepository.getAllUsers()
     }
-    
-    fun getUserByLogin(login: String): LiveData<User> {
-        return this.userRepository.getUserByLogin(login)
-    }
 
-    fun getLoggedUser(): String {
+    fun getLoggedUser(): User {
         return loggedUser.getLoggedUser()
     }
 
