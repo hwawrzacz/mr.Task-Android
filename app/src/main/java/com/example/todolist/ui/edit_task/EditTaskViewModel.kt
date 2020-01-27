@@ -28,6 +28,7 @@ class EditTaskViewModel: ViewModel() {
 
     var task = MutableLiveData<Task>()
     var listOfReceivers = listOf<User>()
+    var listOfReceiversLogins = listOf<String>()
     var listOfPriorities = listOf<Priority>()
 
     var id = MutableLiveData<Int>()
@@ -111,11 +112,11 @@ class EditTaskViewModel: ViewModel() {
         this.isTitleValid.value = this.title.value.isNullOrEmpty()
     }
 
-    private fun validateExpirationDate() {
-        val calendar = Calendar.getInstance()
-        val currentYear = calendar.get(Calendar.YEAR)
-        val currentMonth = calendar.get(Calendar.MONTH)
-        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-    }
+//    private fun validateExpirationDate() {
+//        val calendar = Calendar.getInstance()
+//        val currentYear = calendar.get(Calendar.YEAR)
+//        val currentMonth = calendar.get(Calendar.MONTH)
+//        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+//    }
 
 }

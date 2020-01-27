@@ -6,7 +6,6 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,18 +22,14 @@ import com.example.todolist.enums.Status
 import com.example.todolist.fragments.FragmentListener
 import com.example.todolist.model.Task
 import com.example.todolist.model.User
-import com.example.todolist.model.dal.DBHelper
 import com.example.todolist.ui.edit_task.EditTaskViewModel
 import com.example.todolist.ui.edit_task.EditTaskViewModelFactory
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_edit_task.view.*
 import kotlinx.android.synthetic.main.fragment_task_details.*
 import kotlinx.android.synthetic.main.fragment_task_details.view.*
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_description
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_expiration_date
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_priority_spinner
 import kotlinx.android.synthetic.main.fragment_task_details.view.task_title
-import kotlinx.android.synthetic.main.home_screen.view.*
 import java.util.*
 
 class TaskDetailsFragment: Fragment() {
@@ -47,19 +42,19 @@ class TaskDetailsFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_task_details, container, false)
 
-        this.createViewModel()
-        this.loadDataFromBundle()
-        this.addButtonsListeners(view)
-        this.addInputsBindingToViewModel(view)
-
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        this.addObservers()
-        this.setPrioritiesSpinner()
+        this.createViewModel()
+        this.loadReceivers()
+        this.populatePrioritiesSpinner()
+        this.loadDataFromBundle()
+        this.addButtonsListeners()
+        this.addInputsBindingToViewModel()
+
     }
 
     private fun createViewModel() {
@@ -68,33 +63,33 @@ class TaskDetailsFragment: Fragment() {
             .get(EditTaskViewModel::class.java)
     }
 
-    private fun addButtonsListeners(view: View) {
-        view.button_save.setOnClickListener {
+    private fun addButtonsListeners() {
+        view?.button_save?.setOnClickListener {
             this.editTaskViewModel.updateTask().observe(this, Observer {
                 this.handleTaskUpdateResponse(it)
             })
         }
-        view.button_assign.setOnClickListener {
+        view?.button_assign?.setOnClickListener {
             this.editTaskViewModel.assignTask().observe(this, Observer {
                 this.handleTaskUpdateResponse(it)
             })
         }
-        view.button_finish.setOnClickListener {
+        view?.button_finish?.setOnClickListener {
             this.editTaskViewModel.finishTask().observe(this, Observer {
                 this.handleTaskUpdateResponse(it)
             })
         }
-        view.button_delete.setOnClickListener {
+        view?.button_delete?.setOnClickListener {
             openDeleteDialog()
         }
-        view.task_expiration_date.setOnClickListener {
+        view?.task_expiration_date?.setOnClickListener {
             this.pickDate()
         }
     }
 
-    private fun addInputsBindingToViewModel(view: View) {
+    private fun addInputsBindingToViewModel() {
         // Add task_title change listener
-        view.task_title.addTextChangedListener(object: TextWatcher {
+        view?.task_title?.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(value: Editable?) {
                 this@TaskDetailsFragment.editTaskViewModel.title.value = value.toString()
             }
@@ -103,7 +98,7 @@ class TaskDetailsFragment: Fragment() {
         })
 
         // Add description change listener
-        view.task_description.addTextChangedListener(object: TextWatcher {
+        view?.task_description?.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(value: Editable?) {
                 this@TaskDetailsFragment.editTaskViewModel.description.value = value.toString()
             }
@@ -112,7 +107,7 @@ class TaskDetailsFragment: Fragment() {
         })
 
         // Add priority change listener
-        view.task_priority_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        view?.task_priority_spinner?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -130,7 +125,7 @@ class TaskDetailsFragment: Fragment() {
         }
 
         // Add receiver change listener
-        view.details_receiver_spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        view?.details_receiver_spinner?.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -157,8 +152,8 @@ class TaskDetailsFragment: Fragment() {
         }
     }
 
-    private fun setPrioritiesSpinner() {
-        val priorities = listOf(Priority.LOW, Priority.MEDIUM, Priority.HIGH)
+    private fun populatePrioritiesSpinner() {
+        val priorities = mutableListOf(Priority.LOW, Priority.MEDIUM, Priority.HIGH)
         this.editTaskViewModel.listOfPriorities = priorities
         val priorityAdapter = ArrayAdapter<String>(
             context!!,
@@ -167,21 +162,16 @@ class TaskDetailsFragment: Fragment() {
 
         priorityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         view?.task_priority_spinner?.adapter = priorityAdapter
-
-        val priorityIndex = priorities.indexOf(this.editTaskViewModel.task.value?.priority)
-        view?.task_priority_spinner?.setSelection(priorityIndex)
-
     }
 
-    private fun setReceiversSpinner(users: List<User>) {
+    private fun populateReceiversSpinner(users: List<User>) {
         this.editTaskViewModel.listOfReceivers = users
+        this.editTaskViewModel.listOfReceiversLogins =
+            this.editTaskViewModel.listOfReceivers.map{ it.login }
 
         val receiversAdapter = ArrayAdapter<User>(context!!, R.layout.spinner_item, users)
         receiversAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         view?.details_receiver_spinner?.adapter = receiversAdapter
-
-        val receiverIndex = users.indexOf(this.editTaskViewModel.receiver.value)
-        view?.details_receiver_spinner?.setSelection(receiverIndex)
     }
 
     private fun handleTaskUpdateResponse(code: ResponseCode) {
@@ -242,18 +232,24 @@ class TaskDetailsFragment: Fragment() {
         Toast.makeText(context, messageId, Toast.LENGTH_LONG).show()
     }
 
-    private fun addObservers() {
+    private fun loadReceivers() {
         this.editTaskViewModel.getAllUsers().observe(this, Observer {
-            this.setReceiversSpinner(it)
+            this.populateReceiversSpinner(it)
         })
     }
 
     private fun fillInputsWithData(task: Task) {
-        Log.i("schab", "Filling data")
         task_title.setText(task.title)
         task_description.setText(task.description)
+        handlePriorityChange(task.priority)
         handleStatusChange(task.status)
+        handleReceiverChange(task.receiver)
         handleExpirationDateChange(task.expirationDate)
+    }
+
+    private fun handlePriorityChange(priority: Priority) {
+        setTaskPriority(priority)
+        selectPriority(priority)
     }
 
     private fun handleStatusChange(status: Status) {
@@ -261,9 +257,25 @@ class TaskDetailsFragment: Fragment() {
         setTaskStatus(status)
     }
 
+    private fun handleReceiverChange(receiver: User?) {
+        setReceiver(receiver)
+        selectReceiver(receiver)
+    }
+
     private fun handleExpirationDateChange(date: String) {
         view?.task_expiration_date?.text = date
         this.editTaskViewModel.expirationDate.value = date
+    }
+
+    private fun setTaskPriority(priority: Priority) {
+        view?.task_status?.text = priority.value
+        this.editTaskViewModel.priority.value = priority
+    }
+
+    private fun selectPriority(priority: Priority) {
+        val priorities = this.editTaskViewModel.listOfPriorities
+        val priorityIndex = priorities.indexOf(priority)
+        view?.task_priority_spinner?.setSelection(priorityIndex)
     }
 
     private fun setTaskStatus(status: Status) {
@@ -271,6 +283,15 @@ class TaskDetailsFragment: Fragment() {
         this.editTaskViewModel.status.value = status
     }
 
+    private fun setReceiver(receiver: User?) {
+        this.editTaskViewModel.receiver.value = receiver
+    }
+
+    private fun selectReceiver(receiver: User?) {
+        val receivers = this.editTaskViewModel.listOfReceiversLogins
+        val receiverIndex = receivers.indexOf(receiver?.login)
+        view?.details_receiver_spinner?.setSelection(receiverIndex)
+    }
 
     private fun openDeleteDialog() {
         val builder = AlertDialog.Builder(context)
