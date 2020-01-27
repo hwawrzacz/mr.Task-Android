@@ -1,19 +1,15 @@
 package com.example.todolist.ui.recyclerViewAdapters
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.model.Task
 import com.example.todolist.R
-import com.example.todolist.TaskDetails
 import com.example.todolist.enums.Priority
 import com.example.todolist.ui.manager.MyFragmentManager
 import com.example.todolist.ui.task_details.TaskDetailsFragment
@@ -63,27 +59,12 @@ class TaskListAdapter(private val context: Context, private var tasks: List<Task
     }
 
     private fun openEditTaskActivity(task: Task) {
-        val intent = Intent(context, TaskDetails::class.java)
-            .apply {
-                putExtra("id", task.id)
-                putExtra("title", task.title)
-                putExtra("priority", task.priority.value)
-                putExtra("status", task.status.value)
-                putExtra("description", task.description)
-                putExtra("expirationDate", task.expirationDate)
-                putExtra("author", task.author.login)
-                putExtra("receiver", task.receiver?.login)
-            }
-
         val myFragmentManager = MyFragmentManager(context as FragmentActivity, R.id.fragment_container)
         val fragment = TaskDetailsFragment()
         val bundle = Bundle()
         bundle.putInt("id", task.id!!)
         fragment.arguments = bundle
         myFragmentManager.replaceWithSubFragment(fragment)
-
-
-//        startActivity(context, intent, null)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
