@@ -24,7 +24,7 @@ class Task(@SerializedName("id")
            var receiver: User?) {
 
     override fun toString(): String {
-        return "$id, $title, $description, ${status.value}, ${priority.value}, ${author.login}, ${receiver?.login}, $creationDate"
+        return "$id, $title, $description, ${status.value}, ${priority.value}, ${author.login}, ${receiver?.login}, $expirationDate"
     }
 }
 

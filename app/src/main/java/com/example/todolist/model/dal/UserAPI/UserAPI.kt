@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class UserAPI {
-    val BASE_URL = "http://192.168.0.105:8080/"
+    val BASE_URL = "http:/192.168.43.170:8080/"
 
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)

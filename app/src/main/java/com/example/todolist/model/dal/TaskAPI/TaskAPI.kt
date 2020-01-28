@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class TaskAPI {
-    val BASE_URL = "http:/192.168.0.105:8080/"
+    val BASE_URL = "http:/192.168.43.170:8080/"
 
     val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
@@ -45,13 +45,14 @@ class TaskAPI {
     }
 
     fun getTaskById(id: Int): MutableLiveData<Task> {
-        val listOfAllTasks = MutableLiveData<Task>()
+        val task = MutableLiveData<Task>()
         val call = service.getTaskById(id)
 
         call.enqueue(object : Callback<Task> {
             override fun onResponse(call: Call<Task>, response: Response<Task>) {
                 if (response.isSuccessful) {
-                    listOfAllTasks.value = response.body()!!
+                    Log.i("schab", "${response.body()}")
+                    task.value = response.body()!!
                 }
             }
             override fun onFailure(call: Call<Task>, t: Throwable) {
@@ -59,7 +60,7 @@ class TaskAPI {
             }
         })
 
-        return listOfAllTasks
+        return task
     }
 
     fun getATasksByAuthor(authorLogin: String): MutableLiveData<List<Task>> {
